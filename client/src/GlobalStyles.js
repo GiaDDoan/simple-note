@@ -48,13 +48,24 @@ export default createGlobalStyle`
 
   //APP styling
   .app_wrapper {
-  border: 3px solid green;
   width: 100%;
+  height: 100vh;
+}
+.sidebar_wrapper{
+  width: 6rem;
+}
+.sub_sidebar_wrapper{
+  width: 20rem;
 }
 
 @media ${device.mobile} {
     .app_wrapper {
       border: 4px solid red;
     }
+    .sidebar_wrapper{
+      width: 80px;
+      border: 1px solid blue;
+    }
+
   }
 `;

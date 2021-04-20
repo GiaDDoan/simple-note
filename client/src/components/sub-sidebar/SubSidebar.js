@@ -4,7 +4,7 @@ import { color_theme } from '../../utils/color-theme';
 
 function SubSidebar() {
   return (
-    <Wrapper>
+    <Wrapper className="sub_sidebar_wrapper">
       <div>SubSidebar</div>
     </Wrapper>
   );
@@ -12,7 +12,6 @@ function SubSidebar() {
 
 const Wrapper = styled.div`
   background-color: ${color_theme.default.sub_sidebar.bg};
-  width: 40%;
 `;
 
 export default SubSidebar;

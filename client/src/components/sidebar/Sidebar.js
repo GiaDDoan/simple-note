@@ -5,7 +5,7 @@ import { color_theme } from '../../utils/color-theme';
 
 function Sidebar() {
   return (
-    <Wrapper>
+    <Wrapper className="sidebar_wrapper">
       <div>SIDEBAR</div>
     </Wrapper>
   );
@@ -13,7 +13,6 @@ function Sidebar() {
 
 const Wrapper = styled.div`
   background-color: ${color_theme.default.sidebar.bg};
-  width: min(100px, 500px);
   color: white;
 `;
 

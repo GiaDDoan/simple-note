@@ -11,16 +11,3 @@ export const device = {
   tablet: `(max-width: ${size.desktop}px)`,
   largeDesktop: `(min-width: ${size.largeDesktop}px)`,
 };
-
-// export const onSmallPhoneMediaQuery = (): string => `
-//   @media ${device.smallPhone}
-// `;
-// export const onSmallTabletMediaQuery = (): string => `
-//   @media ${device.smallTablet}
-// `;
-// export const onTabletMediaQuery = (): string => `
-//   @media ${device.tablet}
-// `;
-// export const onLargeDesktopMediaQuery = (): string => `
-//   @media ${device.largeDesktop}
-// `;
