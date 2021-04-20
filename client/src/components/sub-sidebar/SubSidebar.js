@@ -1,20 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import { color_theme } from '../../utils/color-theme';
 
-function Sidebar() {
+function SubSidebar() {
   return (
     <Wrapper>
-      <div>SIDEBAR</div>
+      <div>SubSidebar</div>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  background-color: ${color_theme.default.sidebar.bg};
-  width: min(100px, 500px);
-  color: white;
+  background-color: ${color_theme.default.sub_sidebar.bg};
+  width: 40%;
 `;
 
-export default Sidebar;
+export default SubSidebar;

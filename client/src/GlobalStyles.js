@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { device } from './utils/responsive';
 
 export default createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -43,5 +44,17 @@ export default createGlobalStyle`
   }
   a{
     text-decoration: none;
+  }
+
+  //APP styling
+  .app_wrapper {
+  border: 3px solid green;
+  width: 100%;
+}
+
+@media ${device.mobile} {
+    .app_wrapper {
+      border: 4px solid red;
+    }
   }
 `;
