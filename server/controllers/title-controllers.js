@@ -15,50 +15,56 @@ const get_all = async (req, res) => {
     //   }
     // });
     // console.log('titles: ', filteredTitles);
+    // const titlesWithRank = await titles.map((title, index) => {
+    //   console.log('NUu ', title.rank);
+    //   if (title.rank == undefined) {
+    //     console.log('title ', title.rank);
+    //     const query = { _id: title._id };
+    //     const addRank = { $set: { rank: index } };
 
-    res
-      .status(200)
-      .json({ status: 200, message: 'Received all titles', titles: titles });
+    //     Title.updateOne(query, addRank);
+
+    //     // console.log('TITLE: ', title, 'INDEX ', index);
+    //     // title.rank = index
+    //   } else {
+    //     return title;
+    //   }
+    // });
+
+    console.log('wut ', titles);
+    // console.log('get');
+    res.status(200).json({
+      status: 200,
+      message: 'Received all titles',
+      titles: titles,
+    });
   } catch (err) {
     res.status(404).json({ status: 404, message: err.message });
   }
 };
 
-// const get_all_titles__ = async (req, res) => {
-//   try {
-//     const titles = await Title.find().exec();
+const add_title = async (req, res) => {
+  const titles = await Title.find().exec();
+  console.log(titles.length, titles.length + 1);
 
-//     res.status(200).json({
-//       status: 200,
-//       message: 'Received all titles',
-//       columnsFromBackend: {
-//         [uuid()]: {
-//           name: 'Title',
-//           items: titles,
-//         },
-//       },
-//     });
-//   } catch (err) {
-//     res.status(404).json({ status: 404, message: err.message });
-//   }
-// };
+  const added_title = new Title({
+    title_name: req.body.title_name,
+    rank: titles.length,
+  });
 
-// const add_title = async (req, res) => {
-//   const title_ = new Title({
-//     title: req.body.title,
-//   });
+  try {
+    const newTitle = await added_title.save();
+    console.log('newTitle added: ', newTitle);
 
-//   try {
-//     const newTitle = await title_.save();
-//     console.log('newTitle added: ', newTitle);
-
-//     res.status(201).json({ status: 201, title: newTitle });
-//   } catch (err) {
-//     res
-//       .status(404)
-//       .json({ status: 404, message: `Cannot add the title`, error: err });
-//   }
-// };
+    res.status(201).json({ status: 201, title: newTitle });
+  } catch (err) {
+    res.status(404).json({
+      status: 404,
+      message: `Cannot add the title`,
+      error: err.message,
+    });
+  }
+};
 
 // const put_titles = async (req, res) => {
 //   // console.log('COLUMSN BODY: ', Object.values(req.body));
@@ -115,8 +121,7 @@ const get_all = async (req, res) => {
 
 module.exports = {
   get_all,
-  // get_all_titles__,
-  // add_title,
+  add_title,
   // put_titles,
   // delete_all_titles,
   // delete_title,
