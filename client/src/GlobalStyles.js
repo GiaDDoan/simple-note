@@ -52,7 +52,10 @@ export default createGlobalStyle`
   height: 100vh;
 }
 .sidebar_wrapper{
-  /* width: 6rem; */
+  width: 7rem;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
 }
 .sub_sidebar_wrapper{
   width: 20rem;

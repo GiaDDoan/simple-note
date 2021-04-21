@@ -35,7 +35,7 @@ function Sidebar() {
     // console.log('NEW FORMAT ', sidebarColumn);
     return (
       <Wrapper className="sidebar_wrapper">
-        <DragAndDrop columnsArg={sidebarColumn} />
+        <DragAndDrop columnsArg={sidebarColumn} class_name={'title_'} />
       </Wrapper>
     );
   }
@@ -45,6 +45,8 @@ function Sidebar() {
 const Wrapper = styled.div`
   background-color: ${color_theme.default.sidebar.bg};
   color: white;
+  /* background-color: black; */
+  /* opacity: 0.5; */
 `;
 
 export default Sidebar;
