@@ -1,6 +1,8 @@
 export const onDragEnd = (result, columns, setColumns) => {
   if (!result.destination) return;
   const { source, destination } = result;
+  // console.log('%cSOURCE ', 'color:green;', source);
+  // console.log('%cDestination ', 'color:yellow;', destination);
 
   if (source.droppableId !== destination.droppableId) {
     const sourceColumn = columns[source.droppableId];
@@ -22,17 +24,29 @@ export const onDragEnd = (result, columns, setColumns) => {
       },
     });
   } else {
+    //Get source column and copy the items to not modify the original array
     const column = columns[source.droppableId];
     const copiedItems = [...column.items];
 
+    //Re-order the array with the indexes
     const [removed] = copiedItems.splice(source.index, 1);
     copiedItems.splice(destination.index, 0, removed);
+    console.log('COPY ', copiedItems);
 
+    //Add an order system with the indexes
+    const addedIndexCopy = [...copiedItems];
+    addedIndexCopy.map((item, index) => {
+      item.rank = index;
+    });
+
+    console.log('ANOTHER ', addedIndexCopy);
+
+    //Set new items with the ordered array
     setColumns({
       ...columns,
       [source.droppableId]: {
         ...column,
-        items: copiedItems,
+        items: addedIndexCopy,
       },
     });
   }

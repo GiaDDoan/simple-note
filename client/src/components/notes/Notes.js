@@ -5,8 +5,8 @@ import DragAndDrop from '../drag-and-drop/DragAndDrop';
 function Notes() {
   return (
     <Wrapper>
-      {/* <div>Notes</div> */}
-      <DragAndDrop />
+      <div>Notes</div>
+      {/* <DragAndDrop /> */}
     </Wrapper>
   );
 }

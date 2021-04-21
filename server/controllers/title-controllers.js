@@ -7,29 +7,16 @@ const get_all = async (req, res) => {
   try {
     const titles = await Title.find().exec();
 
-    //##FILTER if we somehow get an empty title
-    // const filteredTitles = new Array();
-    // titles.filter((title) => {
-    //   if (title.title && title.title !== '') {
-    //     filteredTitles.push(title);
-    //   }
-    // });
-    // console.log('titles: ', filteredTitles);
-    // const titlesWithRank = await titles.map((title, index) => {
-    //   console.log('NUu ', title.rank);
-    //   if (title.rank == undefined) {
-    //     console.log('title ', title.rank);
-    //     const query = { _id: title._id };
-    //     const addRank = { $set: { rank: index } };
+    // let formatForDragAndDrop = {};
 
-    //     Title.updateOne(query, addRank);
-
-    //     // console.log('TITLE: ', title, 'INDEX ', index);
-    //     // title.rank = index
-    //   } else {
-    //     return title;
-    //   }
+    // titles.map((title) => {
+    //   formatForDragAndDrop[title._id] = {
+    //     name: title.title_name,
+    //     items: [title],
+    //   };
     // });
+
+    // console.log('NEW FORMAT ', formatForDragAndDrop);
 
     console.log('wut ', titles);
     // console.log('get');
@@ -45,11 +32,11 @@ const get_all = async (req, res) => {
 
 const add_title = async (req, res) => {
   const titles = await Title.find().exec();
-  console.log(titles.length, titles.length + 1);
+  // console.log(titles.length, titles.length + 1);
 
   const added_title = new Title({
     title_name: req.body.title_name,
-    rank: titles.length,
+    // rank: titles.length,
   });
 
   try {

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { onDragEnd } from './functions/onDragEnd';
+// import { fetchAllTitles } from '../../api-helpers/index';
 
 const itemsFromBackend = [
   { id: uuid(), content: 'First task' },
@@ -22,8 +23,9 @@ const columnsFromBackend = {
   },
 };
 
-function DragAndDrop() {
-  const [columns, setColumns] = React.useState(columnsFromBackend);
+function DragAndDrop({ columnsArg }) {
+  const [columns, setColumns] = React.useState(columnsArg);
+  const [status, setStatus] = React.useState('loading');
 
   return (
     <DragDropContext
@@ -54,10 +56,11 @@ function DragAndDrop() {
                     }}
                   >
                     {column.items.map((item, index) => {
+                      // console.log(item, index);
                       return (
                         <Draggable
-                          key={item.id} //_id
-                          draggableId={item.id} //_id
+                          key={item._id} //_id
+                          draggableId={item._id} //_id
                           index={index}
                         >
                           {(provided, snapshot) => {
@@ -74,7 +77,7 @@ function DragAndDrop() {
                                     ...provided.draggableProps.style,
                                   }}
                                 >
-                                  {item.content}
+                                  {item.title_name}
                                 </Title>
                               </>
                             );
@@ -94,7 +97,7 @@ function DragAndDrop() {
   );
 }
 
-const Title = styled(Link)`
+const Title = styled.div`
   border: 2px solid black;
   /* width: 65px;
   height: 65px;
