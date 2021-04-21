@@ -1,32 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import uuid from 'uuid/v4';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import { onDragEnd } from './functions/onDragEnd';
+import ModalToggleBtn from '../modal/ModalToggleBtn';
+import Modal from '../modal/Modal';
+// import { ToggleFct } from '../modal/functions/ToggleFct';
 // import { fetchAllTitles } from '../../api-helpers/index';
-
-// const itemsFromBackend = [
-//   { id: uuid(), content: 'First task' },
-//   { id: uuid(), content: 'Second task' },
-// ];
-
-// const columnsFromBackend = {
-//   [uuid()]: {
-//     name: 'Todo',
-//     items: itemsFromBackend,
-//   },
-//   [uuid()]: {
-//     name: 'In Progress',
-//     items: [],
-//   },
-// };
 
 function DragAndDrop({ columnsArg, class_name }) {
   const [columns, setColumns] = React.useState(columnsArg);
   const [status, setStatus] = React.useState('loading');
   console.log('COLUMNS', columns);
+  //Modal
+  const [modalToggle, setModalToggle] = useState(false);
+
+  const ToggleFct = () => {
+    console.log('Toggle called');
+    setModalToggle((modalToggle) => !modalToggle);
+  };
 
   return (
     <DragDropContext
@@ -94,6 +88,16 @@ function DragAndDrop({ columnsArg, class_name }) {
                 );
               }}
             </Droppable>
+            <ModalToggleBtn
+              modalToggle={modalToggle}
+              setModalToggle={setModalToggle}
+              ToggleFct={ToggleFct}
+            />
+            <Modal
+              modalToggle={modalToggle}
+              setModalToggle={setModalToggle}
+              ToggleFct={ToggleFct}
+            />
           </Wrapper>
         );
       })}

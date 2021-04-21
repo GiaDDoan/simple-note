@@ -17,5 +17,8 @@ export const color_theme = {
       bg: 'rgb(0, 0, 0, .4)',
       item_bg: 'none',
     },
+    modal: {
+      bg: 'rgb(241, 241, 241, .41)',
+    },
   },
 };
