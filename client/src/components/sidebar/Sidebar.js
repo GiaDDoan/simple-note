@@ -17,7 +17,7 @@ function Sidebar() {
         const fetch_response = await fetchAllTitles();
         const newDataFormat = {
           [uuid()]: {
-            name: 'Title',
+            name: fetch_response.collection,
             items: fetch_response.titles,
           },
         };

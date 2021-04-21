@@ -92,6 +92,7 @@ function DragAndDrop({ columnsArg, class_name }) {
               modalToggle={modalToggle}
               setModalToggle={setModalToggle}
               ToggleFct={ToggleFct}
+              name={column.name}
             />
             <Modal
               modalToggle={modalToggle}
@@ -107,7 +108,7 @@ function DragAndDrop({ columnsArg, class_name }) {
 
 const Wrapper = styled.div`
   ${(props) =>
-    props.name === 'Title' &&
+    props.name === 'titles' &&
     css`
       display: flex;
       flex-direction: column;
@@ -127,11 +128,11 @@ const Wrapper = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: 0.3s;
-        background-color: #4b4a54;
+        /* transition: 0.3s; */
+        background-color: rgb(75, 74, 84);
 
         &:hover {
-          border-radius: 10%;
+          background-color: rgb(75, 74, 84, 0.8);
         }
       }
       .title_ {
@@ -142,26 +143,17 @@ const Wrapper = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: 0.3s;
+        /* transition: 0.3s; */
         background-color: #4b4a54;
 
         &:hover {
-          border-radius: 10%;
+          /* border-radius: 10%; */
+          background-color: rgb(75, 74, 84, 0.8);
         }
       }
     `}
 `;
-const Title = styled.div`
-  /* border: 2px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: 0.3s;
-
-  &:hover {
-    border-radius: 10%;
-  } */
-`;
+const Title = styled.div``;
 const Container = styled.div``;
 
 export default DragAndDrop;

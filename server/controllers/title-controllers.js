@@ -3,11 +3,13 @@ require('dotenv').config();
 const Title = require('../models/title');
 const uuid = require('uuid4');
 
-const get_all = async (req, res) => {
+const get_all_titles = async (req, res) => {
   try {
     const titles = await Title.find().exec();
 
     // let formatForDragAndDrop = {};
+    const collection = await Title.collection.collectionName;
+    console.log('COLLECTION ', collection);
 
     // titles.map((title) => {
     //   formatForDragAndDrop[title._id] = {
@@ -23,6 +25,7 @@ const get_all = async (req, res) => {
     res.status(200).json({
       status: 200,
       message: 'Received all titles',
+      collection: collection,
       titles: titles,
     });
   } catch (err) {
@@ -107,7 +110,7 @@ const add_title = async (req, res) => {
 // };
 
 module.exports = {
-  get_all,
+  get_all_titles,
   add_title,
   // put_titles,
   // delete_all_titles,
