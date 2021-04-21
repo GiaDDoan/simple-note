@@ -14,7 +14,7 @@ export const color_theme = {
     },
     notes: {
       // item_bg: '#C0D2DA',
-      bg: 'rgb(0, 0, 0, .3)',
+      bg: 'rgb(0, 0, 0, .4)',
       item_bg: 'none',
     },
   },

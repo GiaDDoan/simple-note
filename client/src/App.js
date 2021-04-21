@@ -13,8 +13,8 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalStyles />
+      <Background className="background_img" src={theme_background} />
       <Wrapper className="app_wrapper">
-        <img className="background_img" src={theme_background} />
         <Sidebar />
         <Switch>
           {/* <Route exact path="/">
@@ -33,13 +33,12 @@ function App() {
 
 const Wrapper = styled.div`
   display: flex;
-
-  .background_img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -100;
-  }
+`;
+const Background = styled.img`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -100;
 `;
 
 export default App;

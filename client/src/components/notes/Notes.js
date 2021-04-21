@@ -15,11 +15,15 @@ function Notes() {
 
 const Wrapper = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: solid 1px red; */
   background-color: ${color_theme.default.notes.bg};
   width: 100vw;
+  height: 100%;
 
   div {
-    width: 100%;
+    color: white;
   }
 `;
 
