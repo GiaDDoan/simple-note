@@ -38,7 +38,7 @@ const get_all_titles = async (req, res) => {
 };
 
 const add_title = async (req, res) => {
-  const titles = await Title.find().exec();
+  // const titles = await Title.find().exec();
   // console.log(titles.length, titles.length + 1);
 
   console.log('BODY ', req.body);
@@ -56,6 +56,24 @@ const add_title = async (req, res) => {
     res.status(404).json({
       status: 404,
       message: `Cannot add the title`,
+      error: err.message,
+    });
+  }
+};
+
+const find_and_update_title = async (req, res) => {
+  //forEach or map over the req.body and update each rank with the Id
+  try {
+    const filter = { _id: req.body._id };
+    const update = { rank: req.body.rank };
+
+    let doc = await Title.findOneAndUpdate(filter, update, { new: true });
+
+    res.status(201).json({ status: 201, newDoc: doc });
+  } catch (error) {
+    res.status(404).json({
+      status: 404,
+      message: `Cannot update the title`,
       error: err.message,
     });
   }
@@ -117,6 +135,7 @@ const add_title = async (req, res) => {
 module.exports = {
   get_all_titles,
   add_title,
+  find_and_update_title,
   // put_titles,
   // delete_all_titles,
   // delete_title,
