@@ -98,6 +98,7 @@ function DragAndDrop({ columnsArg, class_name }) {
               modalToggle={modalToggle}
               setModalToggle={setModalToggle}
               ToggleFct={ToggleFct}
+              column={column}
             />
           </Wrapper>
         );

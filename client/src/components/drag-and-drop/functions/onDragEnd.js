@@ -39,7 +39,8 @@ export const onDragEnd = (result, columns, setColumns) => {
       item.rank = index;
     });
 
-    console.log('ANOTHER ', addedIndexCopy);
+    // console.log('ANOTHER ', addedIndexCopy);
+    console.log('COLUMNS ', columns);
 
     //Set new items with the ordered array
     setColumns({

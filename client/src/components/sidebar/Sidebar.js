@@ -18,6 +18,7 @@ function Sidebar() {
         const newDataFormat = {
           [uuid()]: {
             name: fetch_response.collection,
+            placeholder_name: fetch_response.placeholder_name,
             items: fetch_response.titles,
           },
         };

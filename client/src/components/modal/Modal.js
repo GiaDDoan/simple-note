@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { color_theme } from '../../utils/color-theme';
+import Form from '../form/Form';
 
-function Modal({ modalToggle, setModalToggle, ToggleFct }) {
+function Modal({ modalToggle, setModalToggle, ToggleFct, column }) {
   // const [modalToggle, setModalToggle] = useState(false);
+  console.log('MODAL COLUMNS ', column);
 
   return (
     <>
       {modalToggle && (
         <Wrapper>
           <Content>
-            <div>INPUT</div>
             <div className="close_bar">
               <button onClick={ToggleFct}>X</button>
             </div>
-            {/* <Form/> */}
+            <div className="form_container">
+              <Form name={column.name} placeholder={column.placeholder_name} />
+            </div>
           </Content>
         </Wrapper>
       )}
@@ -38,11 +41,29 @@ const Wrapper = styled.div`
 const Content = styled.div`
   width: 500px;
   height: 300px;
-  border: solid 1px yellow;
   background-color: ${color_theme.default.modal.bg};
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   z-index: 10;
+  position: relative;
+  border-radius: 20px;
+
+  .close_bar {
+    position: absolute;
+    /* top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0; */
+    right: 15px;
+    top: 10px;
+  }
+
+  /* .form_container {
+    border: solid 1px blue;
+    display: flex;
+    align-items: center;
+  } */
 `;
 
 export default Modal;

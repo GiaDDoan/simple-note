@@ -6,10 +6,13 @@ const uuid = require('uuid4');
 const get_all_titles = async (req, res) => {
   try {
     const titles = await Title.find().exec();
-
-    // let formatForDragAndDrop = {};
     const collection = await Title.collection.collectionName;
+    let placeholder_name;
     console.log('COLLECTION ', collection);
+
+    if (collection == 'titles') {
+      placeholder_name = 'Title: ';
+    }
 
     // titles.map((title) => {
     //   formatForDragAndDrop[title._id] = {
@@ -26,6 +29,7 @@ const get_all_titles = async (req, res) => {
       status: 200,
       message: 'Received all titles',
       collection: collection,
+      placeholder_name: placeholder_name,
       titles: titles,
     });
   } catch (err) {
