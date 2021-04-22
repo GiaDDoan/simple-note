@@ -7,6 +7,11 @@ export const receiveAllTitles = (titlesColumn) => ({
   titlesColumn,
 });
 
+export const updateTitles = (titlesColumn) => ({
+  type: 'UPDATE_TITLES',
+  titlesColumn,
+});
+
 // export const updateTitleOrder = (sourceId, sourceItems) => ({
 //   type: 'UPDATE_TITLE_ORDER',
 //   sourceId,

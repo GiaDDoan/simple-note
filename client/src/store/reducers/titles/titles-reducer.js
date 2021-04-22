@@ -20,6 +20,23 @@ export default function titlesReducer(state = initialState, action) {
       };
     }
 
+    case 'UPDATE_TITLES': {
+      const { titlesColumn } = action;
+      const copyState = { ...state };
+      delete copyState.columnsFromBackend;
+
+      const updatedState = {
+        ...copyState,
+        columnsFromBackend: titlesColumn,
+      };
+
+      console.log('NEW STATE ', updatedState);
+
+      return {
+        ...updatedState,
+      };
+    }
+
     // case 'RECEIVE_ALL_TITLES_TEST': {
     //   let id;
     //   console.log('%cFROM REDUCER:', 'color: yellow;', action.objectFromGetReq);

@@ -3,6 +3,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import uuid from 'uuid/v4';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { onDragEnd } from './functions/onDragEnd';
 import ModalToggleBtn from '../modal/ModalToggleBtn';
@@ -11,22 +12,23 @@ import Modal from '../modal/Modal';
 // import { fetchAllTitles } from '../../api-helpers/index';
 
 function DragAndDrop({ columnsArg, class_name }) {
-  const [columns, setColumns] = React.useState(columnsArg);
+  // const [columns, setColumns] = React.useState(columnsArg);
   const [status, setStatus] = React.useState('loading');
   // console.log('COLUMNS', columns);
   //Modal
   const [modalToggle, setModalToggle] = useState(false);
+  const dispatch = useDispatch();
 
   const ToggleFct = () => {
     // console.log('Toggle called');
     setModalToggle((modalToggle) => !modalToggle);
   };
-  console.log('%cCOLUMNS ', 'color:yellow;', columns);
+  // console.log('%cCOLUMNS ', 'color:yellow;', columns);
   return (
     <DragDropContext
-      onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
+      onDragEnd={(result) => onDragEnd(result, columnsArg, dispatch)}
     >
-      {Object.entries(columns).map(([id, column]) => {
+      {Object.entries(columnsArg).map(([id, column]) => {
         return (
           <Wrapper name={column.name}>
             <div className="sidebar_home_wrapper">

@@ -1,4 +1,6 @@
-export const onDragEnd = (result, columns, setColumns) => {
+import { updateTitles } from '../../../store/reducers/titles/actions';
+
+export const onDragEnd = (result, columns, dispatch) => {
   if (!result.destination) return;
   const { source, destination } = result;
   // console.log('%cSOURCE ', 'color:green;', source);
@@ -12,17 +14,17 @@ export const onDragEnd = (result, columns, setColumns) => {
 
     const [removed] = sourceItems.splice(source.index, 1);
     destItems.splice(destination.index, 0, removed);
-    setColumns({
-      ...columns,
-      [source.droppableId]: {
-        ...sourceColumn,
-        items: sourceItems,
-      },
-      [destination.droppableId]: {
-        ...destColumn,
-        items: destItems,
-      },
-    });
+    // setColumns({
+    //   ...columns,
+    //   [source.droppableId]: {
+    //     ...sourceColumn,
+    //     items: sourceItems,
+    //   },
+    //   [destination.droppableId]: {
+    //     ...destColumn,
+    //     items: destItems,
+    //   },
+    // });
   } else {
     //Get source column and copy the items to not modify the original array
     const column = columns[source.droppableId];
@@ -42,13 +44,22 @@ export const onDragEnd = (result, columns, setColumns) => {
     // console.log('ANOTHER ', addedIndexCopy);
     console.log('COLUMNS ', columns);
 
-    //Set new items with the ordered array
-    setColumns({
+    let updatedColumn = {
       ...columns,
       [source.droppableId]: {
         ...column,
         items: addedIndexCopy,
       },
-    });
+    };
+
+    //Set new items with the ordered array
+    dispatch(updateTitles(updatedColumn));
+    // setColumns({
+    //   ...columns,
+    //   [source.droppableId]: {
+    //     ...column,
+    //     items: addedIndexCopy,
+    //   },
+    // });
   }
 };
