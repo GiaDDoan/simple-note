@@ -5,7 +5,7 @@ import Form from '../form/Form';
 
 function Modal({ modalToggle, setModalToggle, ToggleFct, column }) {
   // const [modalToggle, setModalToggle] = useState(false);
-  console.log('MODAL COLUMNS ', column);
+  // console.log('MODAL COLUMNS ', column);
 
   return (
     <>
@@ -16,7 +16,12 @@ function Modal({ modalToggle, setModalToggle, ToggleFct, column }) {
               <button onClick={ToggleFct}>X</button>
             </div>
             <div className="form_container">
-              <Form name={column.name} placeholder={column.placeholder_name} />
+              <Form
+                name={column.name}
+                placeholder={column.placeholder_name}
+                column={column}
+                setModalToggle={setModalToggle}
+              />
             </div>
           </Content>
         </Wrapper>

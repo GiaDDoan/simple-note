@@ -1,18 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import uuid from 'uuid/v4';
 
 import { color_theme } from '../../utils/color-theme';
 import DragAndDrop from '../drag-and-drop/DragAndDrop';
 import { fetchAllTitles } from '../../api-helpers/index';
-import uuid from 'uuid/v4';
+import {
+  requestAllTitles,
+  receiveAllTitles,
+} from '../../store/reducers/titles/actions';
 
 function Sidebar() {
   const [status, setStatus] = React.useState('loading');
   const [sidebarColumn, setSidebarColumn] = React.useState({});
+  const dispatch = useDispatch();
+  const titlesState = useSelector((state) => state.titles);
+  console.log('TITLE STATE ', titlesState.columnsFromBackend);
 
   React.useEffect(() => {
     const fetchingTitles = async () => {
       setStatus('loading');
+      dispatch(requestAllTitles());
       try {
         const fetch_response = await fetchAllTitles();
         const newDataFormat = {
@@ -22,6 +31,8 @@ function Sidebar() {
             items: fetch_response.titles,
           },
         };
+        console.log('NEW FORMAT ', newDataFormat);
+        dispatch(receiveAllTitles(newDataFormat));
         setSidebarColumn(newDataFormat);
         setStatus('idle');
       } catch (error) {
@@ -36,7 +47,10 @@ function Sidebar() {
     // console.log('NEW FORMAT ', sidebarColumn);
     return (
       <Wrapper className="sidebar_wrapper">
-        <DragAndDrop columnsArg={sidebarColumn} class_name={'title_'} />
+        <DragAndDrop
+          columnsArg={titlesState.columnsFromBackend}
+          class_name={'title_'}
+        />
       </Wrapper>
     );
   }

@@ -5,9 +5,6 @@ function ModalToggleBtn({ modalToggle, setModalToggle, ToggleFct, name }) {
   // const Toggle = () => {
   //   setModalToggle((modalToggle) => !modalToggle);
   // };
-  console.log('NAME', name);
-
-  console.log('Toggle state ', modalToggle);
   return (
     <Wrapper name={name}>
       <Button className="modal_toggle" onClick={ToggleFct}>

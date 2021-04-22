@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 function Input({ name, type, value, handleChange, placeholder }) {
-  console.log('VALUE ', value);
   return (
     <Wrapper className="modal_input">
       <label>{placeholder}</label>

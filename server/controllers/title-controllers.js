@@ -11,7 +11,7 @@ const get_all_titles = async (req, res) => {
     console.log('COLLECTION ', collection);
 
     if (collection == 'titles') {
-      placeholder_name = 'Title: ';
+      placeholder_name = 'Title';
     }
 
     // titles.map((title) => {
@@ -41,9 +41,10 @@ const add_title = async (req, res) => {
   const titles = await Title.find().exec();
   // console.log(titles.length, titles.length + 1);
 
+  console.log('BODY ', req.body);
+
   const added_title = new Title({
-    title_name: req.body.title_name,
-    // rank: titles.length,
+    title_name: req.body.userInput,
   });
 
   try {

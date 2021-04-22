@@ -13,22 +13,20 @@ import Modal from '../modal/Modal';
 function DragAndDrop({ columnsArg, class_name }) {
   const [columns, setColumns] = React.useState(columnsArg);
   const [status, setStatus] = React.useState('loading');
-  console.log('COLUMNS', columns);
+  // console.log('COLUMNS', columns);
   //Modal
   const [modalToggle, setModalToggle] = useState(false);
 
   const ToggleFct = () => {
-    console.log('Toggle called');
+    // console.log('Toggle called');
     setModalToggle((modalToggle) => !modalToggle);
   };
-
+  console.log('%cCOLUMNS ', 'color:yellow;', columns);
   return (
     <DragDropContext
       onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
     >
       {Object.entries(columns).map(([id, column]) => {
-        console.log('COL ', column);
-
         return (
           <Wrapper name={column.name}>
             <div className="sidebar_home_wrapper">
