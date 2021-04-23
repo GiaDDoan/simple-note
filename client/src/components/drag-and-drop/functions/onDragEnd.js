@@ -54,6 +54,15 @@ export const onDragEnd = (result, columns, dispatch) => {
 
     //Set new items with the ordered array
     dispatch(updateTitles(updatedColumn));
+
+    fetch('/title/find-and-update-title', {
+      method: 'PATCH',
+      body: JSON.stringify({ ...updatedColumn }),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
     // setColumns({
     //   ...columns,
     //   [source.droppableId]: {

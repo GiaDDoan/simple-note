@@ -5,26 +5,14 @@ const uuid = require('uuid4');
 
 const get_all_titles = async (req, res) => {
   try {
-    const titles = await Title.find().exec();
+    const titles = await Title.find({}).sort({ rank: 1 }).exec();
     const collection = await Title.collection.collectionName;
     let placeholder_name;
-    console.log('COLLECTION ', collection);
 
     if (collection == 'titles') {
       placeholder_name = 'Title';
     }
 
-    // titles.map((title) => {
-    //   formatForDragAndDrop[title._id] = {
-    //     name: title.title_name,
-    //     items: [title],
-    //   };
-    // });
-
-    // console.log('NEW FORMAT ', formatForDragAndDrop);
-
-    console.log('wut ', titles);
-    // console.log('get');
     res.status(200).json({
       status: 200,
       message: 'Received all titles',
@@ -39,17 +27,12 @@ const get_all_titles = async (req, res) => {
 
 const add_title = async (req, res) => {
   // const titles = await Title.find().exec();
-  // console.log(titles.length, titles.length + 1);
-
-  console.log('BODY ', req.body);
-
   const added_title = new Title({
     title_name: req.body.userInput,
   });
 
   try {
     const newTitle = await added_title.save();
-    console.log('newTitle added: ', newTitle);
 
     res.status(201).json({ status: 201, title: newTitle });
   } catch (err) {
@@ -63,13 +46,30 @@ const add_title = async (req, res) => {
 
 const find_and_update_title = async (req, res) => {
   //forEach or map over the req.body and update each rank with the Id
+  const { items } = req.body;
+  //Separate the ID to get the column
+  // Object.entries(req.body).map(([id, column]) => {
+  //   column.items.map((item) => {
+  //     console.log('item ', item);
+  //   });
+  // });
+  // console.log('UPDATE REQ ', Object.entries(req.body));
   try {
-    const filter = { _id: req.body._id };
-    const update = { rank: req.body.rank };
+    Object.entries(req.body).map(([id, column]) => {
+      column.items.map(async (item) => {
+        const filter = { _id: item._id };
+        const update = { rank: item.rank };
 
-    let doc = await Title.findOneAndUpdate(filter, update, { new: true });
+        await Title.findOneAndUpdate(filter, update, { new: true });
+      });
+    });
 
-    res.status(201).json({ status: 201, newDoc: doc });
+    // const filter = { _id: req.body._id };
+    // const update = { rank: req.body.rank };
+
+    // let doc = await Title.findOneAndUpdate(filter, update, { new: true });
+
+    res.status(201).json({ status: 201, message: 'Rank updated' });
   } catch (error) {
     res.status(404).json({
       status: 404,
