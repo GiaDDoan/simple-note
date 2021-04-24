@@ -15,7 +15,7 @@ function Modal({
   receive_reducer,
 }) {
   // const [modalToggle, setModalToggle] = useState(false);
-  console.log('MODAL COLUMNS ', column);
+  // console.log('MODAL COLUMNS ', column);
 
   return (
     <>

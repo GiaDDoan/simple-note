@@ -5,13 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import configureStore from './store';
+import { RightClickProvider } from './components/right-click-content/RightClickContext';
 
 const store = configureStore();
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <RightClickProvider>
+        <App />
+      </RightClickProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

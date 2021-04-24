@@ -16,7 +16,8 @@ function Sidebar() {
   const [sidebarColumn, setSidebarColumn] = React.useState({});
   const dispatch = useDispatch();
   const titlesState = useSelector((state) => state.titles);
-  console.log('TITLE STATE ', titlesState);
+
+  // console.log('TITLE STATE ', titlesState);
 
   React.useEffect(() => {
     const fetchingTitles = async () => {

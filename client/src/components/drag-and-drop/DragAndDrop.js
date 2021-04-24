@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import { onDragEnd } from './functions/onDragEnd';
 import ModalToggleBtn from '../modal/ModalToggleBtn';
 import Modal from '../modal/Modal';
+import { RightClickContext } from '../right-click-content/RightClickContext';
+import RightClickContent from '../right-click-content/RightClickContent';
 // import { ToggleFct } from '../modal/functions/ToggleFct';
 // import { fetchAllTitles } from '../../api-helpers/index';
 
@@ -24,6 +26,13 @@ function DragAndDrop({
   //Modal
   const [modalToggle, setModalToggle] = useState(false);
   // const dispatch = useDispatch();
+  const {
+    isContextMenuVisible,
+    contextMenuX,
+    contextMenuY,
+    chosenItem,
+    actions: { handleRightClick, handleChosenItem },
+  } = React.useContext(RightClickContext);
 
   const ToggleFct = () => {
     // console.log('Toggle called');
@@ -35,7 +44,7 @@ function DragAndDrop({
       onDragEnd={(result) => onDragEnd(result, columnsArg, dispatch)}
     >
       {Object.entries(columnsArg).map(([id, column]) => {
-        console.log('DnD', id);
+        // console.log('DnD', id);
 
         return (
           <Wrapper collection={column.collection}>
@@ -74,6 +83,10 @@ function DragAndDrop({
                               <>
                                 <Title
                                   className="title_"
+                                  onContextMenuCapture={(event) => {
+                                    handleRightClick(event);
+                                    handleChosenItem(item);
+                                  }}
                                   snapshot={snapshot}
                                   ref={provided.innerRef}
                                   {...provided.draggableProps}
@@ -85,6 +98,18 @@ function DragAndDrop({
                                 >
                                   {item.title_name}
                                 </Title>
+                                {isContextMenuVisible &&
+                                  chosenItem._id === item._id && (
+                                    <RightClickContent
+                                      collection={column.collection}
+                                      contextMenuX={contextMenuX}
+                                      contextMenuY={contextMenuY}
+                                      chosenItem={chosenItem}
+                                      // fct={removeTitle}
+                                      // itemId={modalItem._id}
+                                      // dispatch={dispatch}
+                                    />
+                                  )}
                               </>
                             );
                           }}
