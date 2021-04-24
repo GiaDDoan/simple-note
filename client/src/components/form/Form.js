@@ -2,9 +2,23 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Input from './Input';
 import formVerification from './verification/formVerification';
+// import {
+//   requestAllTitles,
+//   receiveAllTitles,
+// } from '../../store/reducers/titles/actions';
 
-function Form({ name, placeholder, column, setModalToggle }) {
-  let initialState = { userInput: '', collection: name };
+function Form({
+  collection,
+  placeholder,
+  column,
+  setModalToggle,
+  columnId,
+  dispatch,
+  fetch_api,
+  request_reducer,
+  receive_reducer,
+}) {
+  let initialState = { userInput: '', collection };
   const [formData, setFormData] = useState(initialState);
   const [formStatus, setFormStatus] = useState('idle');
   const [formError, setFormError] = useState(null);
@@ -12,8 +26,9 @@ function Form({ name, placeholder, column, setModalToggle }) {
   const handleChange = (val, keyName) => {
     setFormData({ ...formData, [keyName]: val });
   };
-  console.log('FORM DATA', formData);
-  console.log('COLUMN ', column);
+  // console.log('FORM DATA', formData);
+  // console.log('COLUMN ', column);
+  console.log('COL ID', initialState);
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
@@ -23,7 +38,7 @@ function Form({ name, placeholder, column, setModalToggle }) {
       setFormError(`${column.placeholder_name} cannot be empty`);
     }
     if (noError) {
-      fetch('/title/add-title', {
+      fetch(`/${collection}/add-document`, {
         method: 'POST',
         body: JSON.stringify({ ...formData }),
         headers: {
@@ -36,6 +51,27 @@ function Form({ name, placeholder, column, setModalToggle }) {
           setModalToggle(false);
           setFormStatus('idle');
           setFormError(null);
+          console.log('JSON ', json);
+
+          const fetchingTitles = async () => {
+            dispatch(request_reducer());
+            try {
+              const fetch_response = await fetch_api();
+              const newDataFormat = {
+                [columnId]: {
+                  collection: fetch_response.collection,
+                  placeholder_name: fetch_response.placeholder_name,
+                  items: fetch_response.titles,
+                },
+              };
+              // console.log('NEW FORMAT ', newDataFormat);
+              dispatch(receive_reducer(newDataFormat));
+              // setSidebarColumn(newDataFormat);
+            } catch (error) {
+              console.error('ERROR: ', error.message);
+            }
+          };
+          fetchingTitles();
 
           // const fetchingTitles = async () => {
           //   // setStatus('loading');

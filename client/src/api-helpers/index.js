@@ -1,3 +1,3 @@
 export const fetchAllTitles = () => {
-  return fetch('/title/get-all-titles').then((response) => response.json());
+  return fetch('/titles/get-all-documents').then((response) => response.json());
 };

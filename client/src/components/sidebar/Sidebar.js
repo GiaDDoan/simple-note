@@ -16,7 +16,7 @@ function Sidebar() {
   const [sidebarColumn, setSidebarColumn] = React.useState({});
   const dispatch = useDispatch();
   const titlesState = useSelector((state) => state.titles);
-  console.log('TITLE STATE ', titlesState.columnsFromBackend);
+  console.log('TITLE STATE ', titlesState);
 
   React.useEffect(() => {
     const fetchingTitles = async () => {
@@ -26,14 +26,14 @@ function Sidebar() {
         const fetch_response = await fetchAllTitles();
         const newDataFormat = {
           [uuid()]: {
-            name: fetch_response.collection,
+            collection: fetch_response.collection,
             placeholder_name: fetch_response.placeholder_name,
             items: fetch_response.titles,
           },
         };
-        console.log('NEW FORMAT ', newDataFormat);
+        // console.log('NEW FORMAT ', newDataFormat);
         dispatch(receiveAllTitles(newDataFormat));
-        setSidebarColumn(newDataFormat);
+        // setSidebarColumn(newDataFormat);
         setStatus('idle');
       } catch (error) {
         setStatus('error');
@@ -49,7 +49,10 @@ function Sidebar() {
       <Wrapper className="sidebar_wrapper">
         <DragAndDrop
           columnsArg={titlesState.columnsFromBackend}
-          class_name={'title_'}
+          dispatch={dispatch}
+          fetch_api={fetchAllTitles}
+          request_reducer={requestAllTitles}
+          receive_reducer={receiveAllTitles}
         />
       </Wrapper>
     );

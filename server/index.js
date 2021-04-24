@@ -27,7 +27,7 @@ app
   .use(express.urlencoded({ extended: false }))
   .use(express.json())
 
-  .use('/title', titleRoutes)
+  .use('/titles', titleRoutes)
   // .use('/sub-title', subTitleRoutes)
   // .use('/note', noteRoute)
   // .use('/history', historyRoute)

@@ -3,7 +3,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import uuid from 'uuid/v4';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
 
 import { onDragEnd } from './functions/onDragEnd';
 import ModalToggleBtn from '../modal/ModalToggleBtn';
@@ -11,13 +11,19 @@ import Modal from '../modal/Modal';
 // import { ToggleFct } from '../modal/functions/ToggleFct';
 // import { fetchAllTitles } from '../../api-helpers/index';
 
-function DragAndDrop({ columnsArg, class_name }) {
+function DragAndDrop({
+  columnsArg,
+  dispatch,
+  fetch_api,
+  request_reducer,
+  receive_reducer,
+}) {
   // const [columns, setColumns] = React.useState(columnsArg);
   const [status, setStatus] = React.useState('loading');
   // console.log('COLUMNS', columns);
   //Modal
   const [modalToggle, setModalToggle] = useState(false);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const ToggleFct = () => {
     // console.log('Toggle called');
@@ -29,8 +35,10 @@ function DragAndDrop({ columnsArg, class_name }) {
       onDragEnd={(result) => onDragEnd(result, columnsArg, dispatch)}
     >
       {Object.entries(columnsArg).map(([id, column]) => {
+        console.log('DnD', id);
+
         return (
-          <Wrapper name={column.name}>
+          <Wrapper collection={column.collection}>
             <div className="sidebar_home_wrapper">
               <div className="sidebar_home_btn">HOME</div>
             </div>
@@ -92,13 +100,18 @@ function DragAndDrop({ columnsArg, class_name }) {
               modalToggle={modalToggle}
               setModalToggle={setModalToggle}
               ToggleFct={ToggleFct}
-              name={column.name}
+              collection={column.collection}
             />
             <Modal
               modalToggle={modalToggle}
               setModalToggle={setModalToggle}
               ToggleFct={ToggleFct}
               column={column}
+              columnId={id}
+              dispatch={dispatch}
+              fetch_api={fetch_api}
+              request_reducer={request_reducer}
+              receive_reducer={receive_reducer}
             />
           </Wrapper>
         );
@@ -109,7 +122,7 @@ function DragAndDrop({ columnsArg, class_name }) {
 
 const Wrapper = styled.div`
   ${(props) =>
-    props.name === 'titles' &&
+    props.collection === 'titles' &&
     css`
       display: flex;
       flex-direction: column;

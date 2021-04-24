@@ -55,7 +55,7 @@ export const onDragEnd = (result, columns, dispatch) => {
     //Set new items with the ordered array
     dispatch(updateTitles(updatedColumn));
 
-    fetch('/title/find-and-update-title', {
+    fetch('/titles/find-and-update-document', {
       method: 'PATCH',
       body: JSON.stringify({ ...updatedColumn }),
       headers: {

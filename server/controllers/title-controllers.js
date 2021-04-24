@@ -26,9 +26,12 @@ const get_all_titles = async (req, res) => {
 };
 
 const add_title = async (req, res) => {
-  // const titles = await Title.find().exec();
+  const titles = await Title.find().exec();
+  console.log('TITLES: ', titles);
+
   const added_title = new Title({
     title_name: req.body.userInput,
+    rank: titles.length,
   });
 
   try {

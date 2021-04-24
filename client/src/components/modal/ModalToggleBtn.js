@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 
-function ModalToggleBtn({ modalToggle, setModalToggle, ToggleFct, name }) {
+function ModalToggleBtn({
+  modalToggle,
+  setModalToggle,
+  ToggleFct,
+  collection,
+}) {
   // const Toggle = () => {
   //   setModalToggle((modalToggle) => !modalToggle);
   // };
   return (
-    <Wrapper name={name}>
+    <Wrapper collection={collection}>
       <Button className="modal_toggle" onClick={ToggleFct}>
         +
       </Button>
@@ -16,7 +21,7 @@ function ModalToggleBtn({ modalToggle, setModalToggle, ToggleFct, name }) {
 
 const Wrapper = styled.div`
   ${(props) =>
-    props.name === 'titles' &&
+    props.collection === 'titles' &&
     css`
       display: flex;
       flex-direction: column;
