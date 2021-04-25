@@ -9,6 +9,7 @@ router.patch(
   '/find-and-update-document',
   titleControllers.find_and_update_title
 );
+router.delete('/delete-document/:documentId', titleControllers.delete_document);
 // router.post('/replace-all-titles', titleController.put_titles);
 // router.delete('/delete-all-titles', titleController.delete_all_titles);
 // router.delete('/delete-title/:titleId', titleController.delete_title);

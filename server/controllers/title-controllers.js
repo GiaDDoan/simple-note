@@ -82,63 +82,30 @@ const find_and_update_title = async (req, res) => {
   }
 };
 
-// const put_titles = async (req, res) => {
-//   // console.log('COLUMSN BODY: ', Object.values(req.body));
-//   console.log('BODY: ', Object.values(req.body));
+const delete_document = async (req, res) => {
+  const document_id = req.params.documentId;
 
-//   Title.deleteMany({}, function (err, result) {
-//     if (err) {
-//       res.send(err);
-//     } else {
-//       res.send(result);
-//     }
-//   });
+  try {
+    await Title.find({ _id: `${document_id}` })
+      .deleteOne()
+      .exec();
 
-//   Title.insertMany(Object.values(req.body))
-//     .then(function () {
-//       console.log('Data inserted');
-//     })
-//     .catch(function (error) {
-//       console.log(error.message);
-//     });
-// };
-
-// const delete_all_titles = async (req, res) => {
-//   // titles.deleteMany
-//   Title.deleteMany({}, function (err, result) {
-//     if (err) {
-//       res.send(err);
-//     } else {
-//       res.send(result);
-//     }
-//   });
-// };
-
-// const delete_title = async (req, res) => {
-//   const titleId_ = req.params.titleId;
-
-//   try {
-//     await Title.find({ _id: `${titleId_}` })
-//       .deleteOne()
-//       .exec();
-
-//     // console.log('newSubTitle added: ', newSubTitle);
-
-//     res.status(201).json({
-//       status: 201,
-//       message: `subTitle with the id: ${titleId_} removed`,
-//     });
-//   } catch (error) {
-//     res
-//       .status(404)
-//       .json({ status: 404, meesage: `Cannot remove the subTitle`, error });
-//   }
-// };
+    res.status(201).json({
+      status: 201,
+      message: `subTitle with the id: ${document_id} removed`,
+    });
+  } catch (error) {
+    res
+      .status(404)
+      .json({ status: 404, meesage: `Cannot remove the subTitle`, error });
+  }
+};
 
 module.exports = {
   get_all_titles,
   add_title,
   find_and_update_title,
+  delete_document,
   // put_titles,
   // delete_all_titles,
   // delete_title,

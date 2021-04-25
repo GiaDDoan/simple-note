@@ -1,18 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import { Link } from 'react-router-dom';
+
+import { deleteDocument, refetchDocuments } from '../../api-helpers/index';
 
 const RightClickContent = ({
   collection,
   contextMenuX,
   contextMenuY,
+  columnId,
   chosenItem,
+  fetch_api,
+  request_reducer,
+  receive_reducer,
+  dispatch,
 }) => {
-  console.log('NAME', collection);
-  console.log('X', contextMenuX);
-  console.log('Y', contextMenuY);
-  console.log('item ', chosenItem);
+  let documentId = chosenItem._id;
   return (
     <Wrapper
       className="right_click_menu"
@@ -25,10 +28,20 @@ const RightClickContent = ({
       }}
     >
       {collection === 'titles' && (
-        // <Option
-        //   onClick={() => fct(itemId, dispatch)}
-        // >{`Delete ${name}`}</Option>
-        <div>Working</div>
+        <Option
+          onClick={() => {
+            deleteDocument(collection, documentId);
+            refetchDocuments(
+              columnId,
+              dispatch,
+              fetch_api,
+              request_reducer,
+              receive_reducer
+            );
+          }}
+        >
+          {`Delete ${collection}`}
+        </Option>
       )}
     </Wrapper>
   );
@@ -48,7 +61,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const Option = styled(Link)`
+const Option = styled.div`
   /* width: 90%; */
   padding: 6px 15px;
   border-radius: 8px;

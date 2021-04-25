@@ -3,7 +3,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import uuid from 'uuid/v4';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { onDragEnd } from './functions/onDragEnd';
 import ModalToggleBtn from '../modal/ModalToggleBtn';
@@ -15,7 +15,7 @@ import RightClickContent from '../right-click-content/RightClickContent';
 
 function DragAndDrop({
   columnsArg,
-  dispatch,
+  // dispatch,
   fetch_api,
   request_reducer,
   receive_reducer,
@@ -25,7 +25,7 @@ function DragAndDrop({
   // console.log('COLUMNS', columns);
   //Modal
   const [modalToggle, setModalToggle] = useState(false);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const {
     isContextMenuVisible,
     contextMenuX,
@@ -104,10 +104,12 @@ function DragAndDrop({
                                       collection={column.collection}
                                       contextMenuX={contextMenuX}
                                       contextMenuY={contextMenuY}
+                                      columnId={id}
                                       chosenItem={chosenItem}
-                                      // fct={removeTitle}
-                                      // itemId={modalItem._id}
-                                      // dispatch={dispatch}
+                                      fetch_api={fetch_api}
+                                      request_reducer={request_reducer}
+                                      receive_reducer={receive_reducer}
+                                      dispatch={dispatch}
                                     />
                                   )}
                               </>

@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import './App.css';
@@ -8,8 +9,18 @@ import Homepage from './components/homepage/Homepage';
 import SubSidebar from './components/sub-sidebar/SubSidebar';
 import Notes from './components/notes/Notes';
 import theme_background from './images/forest.jpg';
+import { RightClickContext } from './components/right-click-content/RightClickContext';
 
 function App() {
+  const {
+    actions: { setIsContextMenuVisible },
+  } = React.useContext(RightClickContext);
+  useEffect(() => {
+    document.addEventListener('click', function () {
+      setIsContextMenuVisible(false);
+    });
+  }, []);
+
   return (
     <BrowserRouter>
       <GlobalStyles />

@@ -31,6 +31,7 @@ export const RightClickProvider = ({ children }) => {
         actions: {
           handleRightClick,
           handleChosenItem,
+          setIsContextMenuVisible,
         },
       }}
     >
