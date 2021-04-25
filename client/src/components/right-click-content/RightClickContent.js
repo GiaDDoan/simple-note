@@ -15,6 +15,7 @@ const RightClickContent = ({
   contextMenuY,
   columnId,
   chosenItem,
+  handleEditContent,
 }) => {
   let documentId = chosenItem._id;
   const {
@@ -33,14 +34,19 @@ const RightClickContent = ({
       }}
     >
       {collection === 'titles' && (
-        <Option
-          onClick={async () => {
-            await deleteDocument(collection, documentId);
-            await refetchDocuments(collection, columnId);
-          }}
-        >
-          {`Delete ${convertedName[collection]}`}
-        </Option>
+        <>
+          <Option
+            onClick={async () => {
+              await deleteDocument(collection, documentId);
+              await refetchDocuments(collection, columnId);
+            }}
+          >
+            {`Delete ${convertedName[collection]}`}
+          </Option>
+          {/* <Option onClick={handleEditContent}>
+            {`Edit ${convertedName[collection]}`}
+          </Option> */}
+        </>
       )}
     </Wrapper>
   );

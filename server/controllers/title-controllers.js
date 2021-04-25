@@ -32,6 +32,7 @@ const add_title = async (req, res) => {
   const added_title = new Title({
     title_name: req.body.userInput,
     rank: titles.length,
+    isInEditMode: false,
   });
 
   try {

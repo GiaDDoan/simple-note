@@ -11,18 +11,12 @@ import Modal from '../modal/Modal';
 import { DragAndDropContext } from '../../contexts/DragAndDropContext';
 import { RightClickContext } from '../../contexts/RightClickContext';
 import RightClickContent from '../right-click-content/RightClickContent';
+import ContentEditable from 'react-contenteditable';
 // import { ToggleFct } from '../modal/functions/ToggleFct';
 // import { fetchAllTitles } from '../../api-helpers/index';
 
-function DragAndDrop({
-  columnsArg,
-  // dispatch,
-  // fetch_api,
-  request_reducer,
-  receive_reducer,
-}) {
+function DragAndDrop({ columnsArg, request_reducer, receive_reducer }) {
   // const [columns, setColumns] = React.useState(columnsArg);
-  const [status, setStatus] = React.useState('loading');
   // console.log('COLUMNS', columns);
   //Modal
   const [modalToggle, setModalToggle] = useState(false);
@@ -30,14 +24,15 @@ function DragAndDrop({
 
   //Contexts
   const {
-    actions: { fetchDocuments },
+    isDisabled,
+    actions: { fetchDocuments, ToggleDisabled, setIsDisabled },
   } = useContext(DragAndDropContext);
   const {
     isContextMenuVisible,
     contextMenuX,
     contextMenuY,
     chosenItem,
-    actions: { handleRightClick, handleChosenItem },
+    actions: { handleRightClick, handleChosenItem, handleEditContent },
   } = useContext(RightClickContext);
 
   const ToggleFct = () => {
@@ -85,11 +80,16 @@ function DragAndDrop({
                           index={index}
                         >
                           {(provided, snapshot) => {
+                            // let textState = {
+                            //   value: item.title_name,
+                            //   isInEditMode: true,
+                            // };
+                            // setTextContent(item.title_name);
                             return (
                               <>
                                 <Title
-                                  // contentEditable={true}
                                   className="title_"
+                                  onDoubleClick={ToggleDisabled}
                                   onContextMenuCapture={(event) => {
                                     handleRightClick(event);
                                     handleChosenItem(item);
@@ -103,7 +103,11 @@ function DragAndDrop({
                                     ...provided.draggableProps.style,
                                   }}
                                 >
-                                  {item.title_name}
+                                  {/* {textState.value} */}
+                                  <ContentEditable
+                                    html={item.title_name}
+                                    disabled={isDisabled}
+                                  />
                                 </Title>
                                 {isContextMenuVisible &&
                                   chosenItem._id === item._id && (
@@ -113,10 +117,7 @@ function DragAndDrop({
                                       contextMenuY={contextMenuY}
                                       columnId={id}
                                       chosenItem={chosenItem}
-                                      // fetch_api={fetch_api}
-                                      // request_reducer={request_reducer}
-                                      // receive_reducer={receive_reducer}
-                                      // dispatch={dispatch}
+                                      handleEditContent={handleEditContent}
                                     />
                                   )}
                               </>

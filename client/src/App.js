@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import './App.css';
@@ -10,11 +10,16 @@ import SubSidebar from './components/sub-sidebar/SubSidebar';
 import Notes from './components/notes/Notes';
 import theme_background from './images/forest.jpg';
 import { RightClickContext } from './contexts/RightClickContext';
+import { DragAndDropContext } from './contexts/DragAndDropContext';
 
 function App() {
   const {
+    isDisabled,
+    actions: { setIsDisabled },
+  } = useContext(DragAndDropContext);
+  const {
     actions: { setIsContextMenuVisible },
-  } = React.useContext(RightClickContext);
+  } = useContext(RightClickContext);
   useEffect(() => {
     document.addEventListener('click', function () {
       setIsContextMenuVisible(false);

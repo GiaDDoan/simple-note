@@ -13,6 +13,13 @@ export const DragAndDropContext = createContext(null);
 
 export const DragAndDropProvider = ({ children }) => {
   const dispatch = useDispatch();
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  const ToggleDisabled = () => {
+    // console.log('Toggle called');
+    setIsDisabled((isDisabled) => !isDisabled);
+    console.log('isDisabled', isDisabled);
+  };
 
   const fetchDocuments = async (collection) => {
     return fetch(`/${collection}/get-all-documents`).then((response) =>
@@ -46,7 +53,10 @@ export const DragAndDropProvider = ({ children }) => {
   return (
     <DragAndDropContext.Provider
       value={{
+        isDisabled,
         actions: {
+          setIsDisabled,
+          ToggleDisabled,
           fetchDocuments,
           refetchDocuments,
           deleteDocument,
