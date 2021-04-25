@@ -19,10 +19,10 @@ export const DragAndDropProvider = ({ children }) => {
       response.json()
     );
   };
+
   const refetchDocuments = async (collection, columnId) => {
     dispatch(requestAllTitles());
     try {
-      console.log('refetcg started');
       const fetch_response = await fetchDocuments(collection);
       const newDataFormat = {
         [columnId]: {
@@ -32,10 +32,15 @@ export const DragAndDropProvider = ({ children }) => {
         },
       };
       dispatch(receiveAllTitles(newDataFormat));
-      console.log('Refetch done');
     } catch (error) {
       console.error('ERROR: ', error.message);
     }
+  };
+
+  const deleteDocument = (collection, documentId) => {
+    fetch(`/${collection}/delete-document/${documentId}`, {
+      method: 'DELETE',
+    });
   };
 
   return (
@@ -44,6 +49,7 @@ export const DragAndDropProvider = ({ children }) => {
         actions: {
           fetchDocuments,
           refetchDocuments,
+          deleteDocument,
         },
       }}
     >

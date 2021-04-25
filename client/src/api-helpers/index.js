@@ -26,8 +26,8 @@
 //   }
 // };
 
-export const deleteDocument = (collection, documentId) => {
-  fetch(`/${collection}/delete-document/${documentId}`, {
-    method: 'DELETE',
-  });
-};
+// export const deleteDocument = (collection, documentId) => {
+//   fetch(`/${collection}/delete-document/${documentId}`, {
+//     method: 'DELETE',
+//   });
+// };

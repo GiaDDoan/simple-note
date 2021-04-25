@@ -8,17 +8,7 @@ import formVerification from './verification/formVerification';
 // } from '../../store/reducers/titles/actions';
 import { DragAndDropContext } from '../../contexts/DragAndDropContext';
 
-function Form({
-  collection,
-  placeholder,
-  column,
-  setModalToggle,
-  columnId,
-  dispatch,
-  // fetch_api,
-  request_reducer,
-  receive_reducer,
-}) {
+function Form({ collection, placeholder, column, setModalToggle, columnId }) {
   let initialState = { userInput: '', collection };
   const [formData, setFormData] = useState(initialState);
   const [formStatus, setFormStatus] = useState('idle');

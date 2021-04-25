@@ -3,17 +3,7 @@ import styled from 'styled-components';
 import { color_theme } from '../../utils/color-theme';
 import Form from '../form/Form';
 
-function Modal({
-  modalToggle,
-  setModalToggle,
-  ToggleFct,
-  column,
-  columnId,
-  dispatch,
-  fetch_api,
-  request_reducer,
-  receive_reducer,
-}) {
+function Modal({ modalToggle, setModalToggle, ToggleFct, column, columnId }) {
   // const [modalToggle, setModalToggle] = useState(false);
   // console.log('MODAL COLUMNS ', column);
 
@@ -32,10 +22,6 @@ function Modal({
                 column={column}
                 setModalToggle={setModalToggle}
                 columnId={columnId}
-                dispatch={dispatch}
-                fetch_api={fetch_api}
-                request_reducer={request_reducer}
-                receive_reducer={receive_reducer}
               />
             </div>
           </Content>

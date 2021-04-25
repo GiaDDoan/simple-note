@@ -2,8 +2,12 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { deleteDocument } from '../../api-helpers/index';
+// import { deleteDocument } from '../../api-helpers/index';
 import { DragAndDropContext } from '../../contexts/DragAndDropContext';
+
+const convertedName = {
+  titles: 'Title',
+};
 
 const RightClickContent = ({
   collection,
@@ -11,14 +15,10 @@ const RightClickContent = ({
   contextMenuY,
   columnId,
   chosenItem,
-  fetch_api,
-  request_reducer,
-  receive_reducer,
-  dispatch,
 }) => {
   let documentId = chosenItem._id;
   const {
-    actions: { refetchDocuments },
+    actions: { refetchDocuments, deleteDocument },
   } = useContext(DragAndDropContext);
 
   return (
@@ -34,19 +34,12 @@ const RightClickContent = ({
     >
       {collection === 'titles' && (
         <Option
-          onClick={() => {
-            deleteDocument(collection, documentId);
-            // refetchDocuments(
-            //   columnId,
-            //   dispatch,
-            //   fetch_api,
-            //   request_reducer,
-            //   receive_reducer
-            // );
-            refetchDocuments(collection, columnId);
+          onClick={async () => {
+            await deleteDocument(collection, documentId);
+            await refetchDocuments(collection, columnId);
           }}
         >
-          {`Delete ${collection}`}
+          {`Delete ${convertedName[collection]}`}
         </Option>
       )}
     </Wrapper>

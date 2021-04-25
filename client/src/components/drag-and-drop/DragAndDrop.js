@@ -88,6 +88,7 @@ function DragAndDrop({
                             return (
                               <>
                                 <Title
+                                  // contentEditable={true}
                                   className="title_"
                                   onContextMenuCapture={(event) => {
                                     handleRightClick(event);
@@ -113,9 +114,9 @@ function DragAndDrop({
                                       columnId={id}
                                       chosenItem={chosenItem}
                                       // fetch_api={fetch_api}
-                                      request_reducer={request_reducer}
-                                      receive_reducer={receive_reducer}
-                                      dispatch={dispatch}
+                                      // request_reducer={request_reducer}
+                                      // receive_reducer={receive_reducer}
+                                      // dispatch={dispatch}
                                     />
                                   )}
                               </>
