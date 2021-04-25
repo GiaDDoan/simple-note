@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import uuid from 'uuid/v4';
 import styled, { css } from 'styled-components';
@@ -8,7 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { onDragEnd } from './functions/onDragEnd';
 import ModalToggleBtn from '../modal/ModalToggleBtn';
 import Modal from '../modal/Modal';
-import { RightClickContext } from '../right-click-content/RightClickContext';
+import { DragAndDropContext } from '../../contexts/DragAndDropContext';
+import { RightClickContext } from '../../contexts/RightClickContext';
 import RightClickContent from '../right-click-content/RightClickContent';
 // import { ToggleFct } from '../modal/functions/ToggleFct';
 // import { fetchAllTitles } from '../../api-helpers/index';
@@ -16,7 +17,7 @@ import RightClickContent from '../right-click-content/RightClickContent';
 function DragAndDrop({
   columnsArg,
   // dispatch,
-  fetch_api,
+  // fetch_api,
   request_reducer,
   receive_reducer,
 }) {
@@ -26,13 +27,18 @@ function DragAndDrop({
   //Modal
   const [modalToggle, setModalToggle] = useState(false);
   const dispatch = useDispatch();
+
+  //Contexts
+  const {
+    actions: { fetchDocuments },
+  } = useContext(DragAndDropContext);
   const {
     isContextMenuVisible,
     contextMenuX,
     contextMenuY,
     chosenItem,
     actions: { handleRightClick, handleChosenItem },
-  } = React.useContext(RightClickContext);
+  } = useContext(RightClickContext);
 
   const ToggleFct = () => {
     // console.log('Toggle called');
@@ -106,7 +112,7 @@ function DragAndDrop({
                                       contextMenuY={contextMenuY}
                                       columnId={id}
                                       chosenItem={chosenItem}
-                                      fetch_api={fetch_api}
+                                      // fetch_api={fetch_api}
                                       request_reducer={request_reducer}
                                       receive_reducer={receive_reducer}
                                       dispatch={dispatch}
@@ -136,7 +142,7 @@ function DragAndDrop({
               column={column}
               columnId={id}
               dispatch={dispatch}
-              fetch_api={fetch_api}
+              // fetch_api={fetch_api}
               request_reducer={request_reducer}
               receive_reducer={receive_reducer}
             />

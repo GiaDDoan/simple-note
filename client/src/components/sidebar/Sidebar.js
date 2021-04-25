@@ -1,21 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import uuid from 'uuid/v4';
 
 import { color_theme } from '../../utils/color-theme';
 import DragAndDrop from '../drag-and-drop/DragAndDrop';
-import { fetchAllTitles } from '../../api-helpers/index';
 import {
   requestAllTitles,
   receiveAllTitles,
 } from '../../store/reducers/titles/actions';
+
+import { DragAndDropContext } from '../../contexts/DragAndDropContext';
 
 function Sidebar() {
   const [status, setStatus] = React.useState('loading');
   const [sidebarColumn, setSidebarColumn] = React.useState({});
   const dispatch = useDispatch();
   const titlesState = useSelector((state) => state.titles);
+  const {
+    actions: { fetchDocuments },
+  } = useContext(DragAndDropContext);
 
   // console.log('TITLE STATE ', titlesState);
 
@@ -24,7 +28,8 @@ function Sidebar() {
       setStatus('loading');
       dispatch(requestAllTitles());
       try {
-        const fetch_response = await fetchAllTitles();
+        // const fetch_response = await fetchAllTitles();
+        const fetch_response = await fetchDocuments('titles');
         const newDataFormat = {
           [uuid()]: {
             collection: fetch_response.collection,
@@ -51,7 +56,7 @@ function Sidebar() {
         <DragAndDrop
           columnsArg={titlesState.columnsFromBackend}
           dispatch={dispatch}
-          fetch_api={fetchAllTitles}
+          // fetch_api={fetchAllTitles}
           request_reducer={requestAllTitles}
           receive_reducer={receiveAllTitles}
         />

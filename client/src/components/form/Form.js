@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import Input from './Input';
 import formVerification from './verification/formVerification';
@@ -6,6 +6,7 @@ import formVerification from './verification/formVerification';
 //   requestAllTitles,
 //   receiveAllTitles,
 // } from '../../store/reducers/titles/actions';
+import { DragAndDropContext } from '../../contexts/DragAndDropContext';
 
 function Form({
   collection,
@@ -14,7 +15,7 @@ function Form({
   setModalToggle,
   columnId,
   dispatch,
-  fetch_api,
+  // fetch_api,
   request_reducer,
   receive_reducer,
 }) {
@@ -22,6 +23,9 @@ function Form({
   const [formData, setFormData] = useState(initialState);
   const [formStatus, setFormStatus] = useState('idle');
   const [formError, setFormError] = useState(null);
+  const {
+    actions: { fetchDocuments, refetchDocuments },
+  } = useContext(DragAndDropContext);
 
   const handleChange = (val, keyName) => {
     setFormData({ ...formData, [keyName]: val });
@@ -53,25 +57,26 @@ function Form({
           setFormError(null);
           console.log('JSON ', json);
 
-          const fetchingTitles = async () => {
-            dispatch(request_reducer());
-            try {
-              const fetch_response = await fetch_api();
-              const newDataFormat = {
-                [columnId]: {
-                  collection: fetch_response.collection,
-                  placeholder_name: fetch_response.placeholder_name,
-                  items: fetch_response.titles,
-                },
-              };
-              // console.log('NEW FORMAT ', newDataFormat);
-              dispatch(receive_reducer(newDataFormat));
-              // setSidebarColumn(newDataFormat);
-            } catch (error) {
-              console.error('ERROR: ', error.message);
-            }
-          };
-          fetchingTitles();
+          refetchDocuments(collection, columnId);
+          // const fetchingTitles = async () => {
+          //   dispatch(request_reducer());
+          //   try {
+          //     const fetch_response = await fetch_api();
+          //     const newDataFormat = {
+          //       [columnId]: {
+          //         collection: fetch_response.collection,
+          //         placeholder_name: fetch_response.placeholder_name,
+          //         items: fetch_response.titles,
+          //       },
+          //     };
+          //     // console.log('NEW FORMAT ', newDataFormat);
+          //     dispatch(receive_reducer(newDataFormat));
+          //     // setSidebarColumn(newDataFormat);
+          //   } catch (error) {
+          //     console.error('ERROR: ', error.message);
+          //   }
+          // };
+          // fetchingTitles();
 
           // const fetchingTitles = async () => {
           //   // setStatus('loading');

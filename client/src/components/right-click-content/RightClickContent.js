@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { deleteDocument, refetchDocuments } from '../../api-helpers/index';
+import { deleteDocument } from '../../api-helpers/index';
+import { DragAndDropContext } from '../../contexts/DragAndDropContext';
 
 const RightClickContent = ({
   collection,
@@ -16,6 +17,10 @@ const RightClickContent = ({
   dispatch,
 }) => {
   let documentId = chosenItem._id;
+  const {
+    actions: { refetchDocuments },
+  } = useContext(DragAndDropContext);
+
   return (
     <Wrapper
       className="right_click_menu"
@@ -31,13 +36,14 @@ const RightClickContent = ({
         <Option
           onClick={() => {
             deleteDocument(collection, documentId);
-            refetchDocuments(
-              columnId,
-              dispatch,
-              fetch_api,
-              request_reducer,
-              receive_reducer
-            );
+            // refetchDocuments(
+            //   columnId,
+            //   dispatch,
+            //   fetch_api,
+            //   request_reducer,
+            //   receive_reducer
+            // );
+            refetchDocuments(collection, columnId);
           }}
         >
           {`Delete ${collection}`}

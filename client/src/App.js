@@ -9,7 +9,7 @@ import Homepage from './components/homepage/Homepage';
 import SubSidebar from './components/sub-sidebar/SubSidebar';
 import Notes from './components/notes/Notes';
 import theme_background from './images/forest.jpg';
-import { RightClickContext } from './components/right-click-content/RightClickContext';
+import { RightClickContext } from './contexts/RightClickContext';
 
 function App() {
   const {

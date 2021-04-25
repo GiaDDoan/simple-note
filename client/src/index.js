@@ -5,16 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import configureStore from './store';
-import { RightClickProvider } from './components/right-click-content/RightClickContext';
+import { RightClickProvider } from './contexts/RightClickContext';
+import { DragAndDropProvider } from './contexts/DragAndDropContext';
 
 const store = configureStore();
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RightClickProvider>
-        <App />
-      </RightClickProvider>
+      <DragAndDropProvider>
+        <RightClickProvider>
+          <App />
+        </RightClickProvider>
+      </DragAndDropProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
