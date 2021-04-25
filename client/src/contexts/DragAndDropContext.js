@@ -18,7 +18,6 @@ export const DragAndDropProvider = ({ children }) => {
   const ToggleDisabled = () => {
     // console.log('Toggle called');
     setIsDisabled((isDisabled) => !isDisabled);
-    console.log('isDisabled', isDisabled);
   };
 
   const fetchDocuments = async (collection) => {

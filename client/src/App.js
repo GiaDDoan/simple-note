@@ -24,6 +24,11 @@ function App() {
     document.addEventListener('click', function () {
       setIsContextMenuVisible(false);
     });
+    document.addEventListener('keypress', function (e) {
+      if (e.key === 'Enter') {
+        setIsDisabled(true);
+      }
+    });
   }, []);
 
   return (
