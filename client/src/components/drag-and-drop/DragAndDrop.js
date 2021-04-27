@@ -194,6 +194,7 @@ const Wrapper = styled.div`
         align-items: center;
         /* transition: 0.3s; */
         background-color: #4b4a54;
+        color: white;
 
         &:hover {
           /* border-radius: 10%; */
@@ -202,7 +203,7 @@ const Wrapper = styled.div`
       }
     `}
 `;
-const Title = styled.div``;
+const Title = styled(Link)``;
 const Container = styled.div``;
 
 export default DragAndDrop;
