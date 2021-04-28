@@ -15,7 +15,7 @@ db.once('open', () => console.log('db connected'));
 
 //Imported Routes
 const titleRoutes = require('./routes/title-routes');
-// const subTitleRoutes = require('./routes/sub-title-route');
+const subTitleRoutes = require('./routes/sub-title-routes');
 // const noteRoute = require('./routes/note-route');
 // const historyRoute = require('./routes/history-route');
 // const historyStackRoute = require('./routes/history-stack-route');
@@ -28,6 +28,7 @@ app
   .use(express.json())
 
   .use('/titles', titleRoutes)
+  .use('/sub-titles', subTitleRoutes)
   // .use('/sub-title', subTitleRoutes)
   // .use('/note', noteRoute)
   // .use('/history', historyRoute)

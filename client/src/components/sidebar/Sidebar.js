@@ -50,6 +50,7 @@ function Sidebar() {
   }, []);
 
   if (status === 'idle') {
+    console.log('%cTITLE STATE ', 'color:yellow;', titlesState);
     // console.log('NEW FORMAT ', sidebarColumn);
     return (
       <Wrapper className="sidebar_wrapper">

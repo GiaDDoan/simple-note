@@ -6,17 +6,17 @@ const uuid = require('uuid4');
 const get_all_titles = async (req, res) => {
   try {
     const titles = await Title.find({}).sort({ rank: 1 }).exec();
-    const collection = await Title.collection.collectionName;
+    const collection__ = await Title.collection.collectionName;
     let placeholder_name;
 
-    if (collection == 'titles') {
+    if (collection__ == 'titles') {
       placeholder_name = 'Title';
     }
 
     res.status(200).json({
       status: 200,
       message: 'Received all titles',
-      collection: collection,
+      collection: collection__,
       placeholder_name: placeholder_name,
       titles: titles,
     });
@@ -30,7 +30,7 @@ const add_title = async (req, res) => {
   console.log('TITLES: ', titles);
 
   const added_title = new Title({
-    title_name: req.body.userInput,
+    main_name: req.body.userInput,
     rank: titles.length,
     isInEditMode: false,
   });

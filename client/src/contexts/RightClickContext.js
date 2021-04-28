@@ -18,7 +18,7 @@ export const RightClickProvider = ({ children }) => {
 
   const handleChosenItem = (item) => {
     // setUpdateNoteModalToggle((updateNoteModalToggle) => !updateNoteModalToggle);
-    console.log('CHOSEN ITEM: ', item);
+    // console.log('CHOSEN ITEM: ', item);
     setChosenItem(item);
   };
 
