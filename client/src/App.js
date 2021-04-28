@@ -38,11 +38,10 @@ function App() {
       <Wrapper className="app_wrapper">
         <Sidebar />
         <Switch>
-          {/* <Route exact path="/">
-            <Homepage />
-          </Route> */}
-
           <Route exact path="/">
+            <Homepage />
+          </Route>
+          <Route exact path="/:title_name">
             <SubSidebar />
             <Notes />
           </Route>

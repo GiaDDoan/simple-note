@@ -8,6 +8,7 @@ import DragAndDrop from '../drag-and-drop/DragAndDrop';
 import {
   requestAllTitles,
   receiveAllTitles,
+  updateTitles,
 } from '../../store/reducers/titles/actions';
 
 import { DragAndDropContext } from '../../contexts/DragAndDropContext';
@@ -50,6 +51,7 @@ function Sidebar() {
   }, []);
 
   if (status === 'idle') {
+    console.log('%cTITLE STATE ', 'color:yellow;', titlesState);
     // console.log('NEW FORMAT ', sidebarColumn);
     return (
       <Wrapper className="sidebar_wrapper">
@@ -59,6 +61,7 @@ function Sidebar() {
           // fetch_api={fetchAllTitles}
           request_reducer={requestAllTitles}
           receive_reducer={receiveAllTitles}
+          update_reducer={updateTitles}
         />
       </Wrapper>
     );

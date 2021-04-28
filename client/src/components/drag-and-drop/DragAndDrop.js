@@ -15,7 +15,12 @@ import ContentEditable from 'react-contenteditable';
 // import { ToggleFct } from '../modal/functions/ToggleFct';
 // import { fetchAllTitles } from '../../api-helpers/index';
 
-function DragAndDrop({ columnsArg, request_reducer, receive_reducer }) {
+function DragAndDrop({
+  columnsArg,
+  request_reducer,
+  receive_reducer,
+  update_reducer,
+}) {
   // const [columns, setColumns] = React.useState(columnsArg);
   // console.log('COLUMNS', columns);
   //Modal
@@ -35,23 +40,40 @@ function DragAndDrop({ columnsArg, request_reducer, receive_reducer }) {
     actions: { handleRightClick, handleChosenItem, handleEditContent },
   } = useContext(RightClickContext);
 
+  const handleChosenTitle = (collection, item) => {
+    if (collection !== 'titles') return;
+
+    let title = item.main_name.toLowerCase();
+    return `/${title}`;
+  };
+
   const ToggleFct = () => {
     // console.log('Toggle called');
     setModalToggle((modalToggle) => !modalToggle);
   };
   // console.log('%cCOLUMNS ', 'color:yellow;', columns);
+
+  // if(columnsArg){
+
+  // }
   return (
     <DragDropContext
-      onDragEnd={(result) => onDragEnd(result, columnsArg, dispatch)}
+      onDragEnd={(result) =>
+        onDragEnd(result, columnsArg, dispatch, update_reducer)
+      }
+      // onDragEnd={(result) => console.log('RESULT ', result)}
     >
       {Object.entries(columnsArg).map(([id, column]) => {
         // console.log('DnD', id);
+        // console.log('ARG', column);
 
         return (
           <Wrapper collection={column.collection}>
-            <div className="sidebar_home_wrapper">
-              <div className="sidebar_home_btn">HOME</div>
-            </div>
+            {column.collection === 'titles' && (
+              <div className="sidebar_home_wrapper">
+                <div className="sidebar_home_btn">HOME</div>
+              </div>
+            )}
             <Droppable droppableId={id} key={id}>
               {(provided, snapshot) => {
                 return (
@@ -87,8 +109,12 @@ function DragAndDrop({ columnsArg, request_reducer, receive_reducer }) {
                             // setTextContent(item.title_name);
                             return (
                               <>
-                                <Title
-                                  className="title_"
+                                <Item
+                                  className="item_"
+                                  onClick={() => handleChosenItem(item)}
+                                  to={() =>
+                                    handleChosenTitle(column.collection, item)
+                                  }
                                   onDoubleClick={ToggleDisabled}
                                   onContextMenuCapture={(event) => {
                                     handleRightClick(event);
@@ -105,10 +131,10 @@ function DragAndDrop({ columnsArg, request_reducer, receive_reducer }) {
                                 >
                                   {/* {textState.value} */}
                                   <ContentEditable
-                                    html={item.title_name}
+                                    html={item.main_name}
                                     disabled={isDisabled}
                                   />
-                                </Title>
+                                </Item>
                                 {isContextMenuVisible &&
                                   chosenItem._id === item._id && (
                                     <RightClickContent
@@ -184,7 +210,7 @@ const Wrapper = styled.div`
           background-color: rgb(75, 74, 84, 0.8);
         }
       }
-      .title_ {
+      .item_ {
         width: 65px;
         height: 65px;
         margin: 20px auto;
@@ -202,8 +228,48 @@ const Wrapper = styled.div`
         }
       }
     `}
+
+  ${(props) =>
+    props.collection === 'sub-titles' &&
+    css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .container_ {
+        border: solid 1px red;
+        width: 100%;
+      }
+      .item_ {
+        width: 80%;
+        margin: 20px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* transition: 0.3s; */
+        background-color: #4b4a54;
+        color: white;
+        border: 1px solid yellow;
+
+        &:hover {
+          /* border-radius: 10%; */
+          background-color: rgb(75, 74, 84, 0.8);
+        }
+      }
+
+      /* display: flex;
+      flex-direction: column;
+      align-items: center;
+      .container_ {
+        border: solid 1px yellow;
+        .item_ {
+          color: white;
+          background-color: grey;
+        }
+      } */
+    `}
 `;
-const Title = styled(Link)``;
+const Item = styled(Link)``;
 const Container = styled.div``;
 
 export default DragAndDrop;
