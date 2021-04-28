@@ -15,7 +15,12 @@ import ContentEditable from 'react-contenteditable';
 // import { ToggleFct } from '../modal/functions/ToggleFct';
 // import { fetchAllTitles } from '../../api-helpers/index';
 
-function DragAndDrop({ columnsArg, request_reducer, receive_reducer }) {
+function DragAndDrop({
+  columnsArg,
+  request_reducer,
+  receive_reducer,
+  update_reducer,
+}) {
   // const [columns, setColumns] = React.useState(columnsArg);
   // console.log('COLUMNS', columns);
   //Modal
@@ -53,8 +58,10 @@ function DragAndDrop({ columnsArg, request_reducer, receive_reducer }) {
   // }
   return (
     <DragDropContext
-      // onDragEnd={(result) => onDragEnd(result, columnsArg, dispatch)}
-      onDragEnd={(result) => console.log('RESULT ', result)}
+      onDragEnd={(result) =>
+        onDragEnd(result, columnsArg, dispatch, update_reducer)
+      }
+      // onDragEnd={(result) => console.log('RESULT ', result)}
     >
       {Object.entries(columnsArg).map(([id, column]) => {
         // console.log('DnD', id);

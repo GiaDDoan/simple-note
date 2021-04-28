@@ -1,6 +1,6 @@
 import { updateTitles } from '../../../store/reducers/titles/actions';
 
-export const onDragEnd = (result, columns, dispatch) => {
+export const onDragEnd = (result, columns, dispatch, update_reducer) => {
   if (!result.destination) return;
   const { source, destination } = result;
   // console.log('%cSOURCE ', 'color:green;', source);
@@ -53,7 +53,7 @@ export const onDragEnd = (result, columns, dispatch) => {
     };
 
     //Set new items with the ordered array
-    dispatch(updateTitles(updatedColumn));
+    dispatch(update_reducer(updatedColumn));
 
     fetch('/titles/find-and-update-document', {
       method: 'PATCH',

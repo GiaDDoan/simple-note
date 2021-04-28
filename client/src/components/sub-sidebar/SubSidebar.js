@@ -9,6 +9,7 @@ import {
   requestAllSubTitles,
   receiveAllSubTitles,
   sendError,
+  updateSubTitles,
 } from '../../store/reducers/sub-titles/actions';
 import DragAndDrop from '../drag-and-drop/DragAndDrop';
 
@@ -59,6 +60,7 @@ function SubSidebar() {
           dispatch={dispatch}
           request_reducer={requestAllSubTitles}
           receive_reducer={receiveAllSubTitles}
+          update_reducer={updateSubTitles}
         />
       </Wrapper>
     );
