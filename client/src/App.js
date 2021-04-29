@@ -41,7 +41,7 @@ function App() {
           <Route exact path="/">
             <Homepage />
           </Route>
-          <Route exact path="/:title_name">
+          <Route exact path="/:title_name_param">
             <SubSidebar />
             <Notes />
           </Route>

@@ -12,12 +12,24 @@ export default function titlesReducer(state = initialState, action) {
       };
     }
     case 'RECEIVE_ALL_TITLES': {
+      const { titlesColumn } = action;
       // console.log('FROM REDUCER ', action.titlesColumn);
+      // console.log('REDUCER ', titlesColumn);
+
       return {
         ...state,
-        columnsFromBackend: action.titlesColumn,
+        // columnsFromBackend: action.titlesColumn,
+        columnsFromBackend: {
+          [uuidv4()]: {
+            collection: titlesColumn.collection,
+            placeholder_name: titlesColumn.placeholder_name,
+            items: titlesColumn.titles,
+          },
+        },
         status: 'idle',
       };
+
+      // return { ...state };
     }
 
     case 'UPDATE_TITLES': {

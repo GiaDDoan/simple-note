@@ -29,15 +29,16 @@ function Sidebar() {
       try {
         // const fetch_response = await fetchAllTitles();
         const fetch_response = await fetchDocuments('titles');
-        const newDataFormat = {
-          [uuid()]: {
-            collection: fetch_response.collection,
-            placeholder_name: fetch_response.placeholder_name,
-            items: fetch_response.titles,
-          },
-        };
+
+        // const newDataFormat = {
+        //   [uuid()]: {
+        //     collection: fetch_response.collection,
+        //     placeholder_name: fetch_response.placeholder_name,
+        //     items: fetch_response.titles,
+        //   },
+        // };
         // console.log('NEW FORMAT ', newDataFormat);
-        dispatch(receiveAllTitles(newDataFormat));
+        dispatch(receiveAllTitles(fetch_response));
         // setSidebarColumn(newDataFormat);
         setStatus('idle');
       } catch (error) {
@@ -50,6 +51,7 @@ function Sidebar() {
 
   if (status === 'idle') {
     // console.log('%cTITLE STATE ', 'color:yellow;', titlesState);
+    // console.log('SENT ', titlesState.columnsFromBackend);
     return (
       <Wrapper className="sidebar_wrapper">
         <DragAndDrop

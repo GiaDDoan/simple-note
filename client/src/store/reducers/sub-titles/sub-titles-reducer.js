@@ -1,3 +1,4 @@
+import uuid from 'uuid/v4';
 const initialState = { status: 'loading', columnsFromBackend: {} };
 
 /*TODO add case names*/
@@ -11,33 +12,43 @@ export default function titlesReducer(state = initialState, action) {
     }
     case 'RECEIVE_ALL_SUB_TITLES': {
       // console.log('FROM REDUCER ', action.titlesColumn);
-      const { subTitlesColumn } = action;
+      const { fetch_response, titlesState, title_name_param } = action;
+      let title_id;
+      let title_name_;
 
-      console.log('receive');
-      console.log('SUUUB', subTitlesColumn);
+      if (titlesState.status === 'idle') {
+        const getValues = Object.values(titlesState.columnsFromBackend);
+        const itemsArray = getValues[0].items;
 
-      if (subTitlesColumn) {
-        let id_;
-        let column_;
-        Object.entries(subTitlesColumn).map(([id, column]) => {
-          console.log('ID ', id, column);
+        const findItem = itemsArray.find((item) => {
+          return item.main_name.toLowerCase() === title_name_param;
         });
-
-        return {
-          ...state,
-          columnsFromBackend: {
-            ...state.columnsFromBackend,
-            subTitlesColumn,
-          },
-          // columnsFromBackend: {
-          //   ...state.columnsFromBackend,
-          //   [id_]: {
-          //     column_,
-          //   },
-          // },
-          status: 'idle',
-        };
+        if (findItem) {
+          // console.log(findItem);
+          title_id = findItem._id;
+          title_name_ = findItem.main_name.toLowerCase();
+        }
       }
+
+      const filteredResponse = fetch_response.sub_titles.filter((item) => {
+        return item.title_name === title_name_param;
+      });
+
+      return {
+        ...state,
+        columnsFromBackend: {
+          ...state.columnsFromBackend,
+          [title_name_]: {
+            [title_id]: {
+              collection: fetch_response.collection,
+              placeholder_name: fetch_response.placeholder_name,
+              items: filteredResponse,
+            },
+          },
+        },
+        status: 'idle',
+      };
+      //return { ...state };
     }
 
     case 'SEND_ERROR': {

@@ -17,9 +17,10 @@ import DragAndDrop from '../drag-and-drop/DragAndDrop';
 import { DragAndDropContext } from '../../contexts/DragAndDropContext';
 
 function SubSidebar() {
-  const { title_name } = useParams();
+  const { title_name_param } = useParams();
   const dispatch = useDispatch();
   const subTitlesState = useSelector((state) => state.subTitles);
+  const titlesState = useSelector((state) => state.titles);
 
   //Contexts
   const {
@@ -32,45 +33,70 @@ function SubSidebar() {
 
       try {
         const fetch_response = await fetchDocuments('sub-titles');
-        console.log('response ', fetch_response.sub_titles);
-        const filteredResponse = await fetch_response.sub_titles.filter(
-          (item) => {
-            return item.title_name === title_name;
-          }
-        );
-        console.log('filtered ', filteredResponse);
 
-        const newDataFormat = {
-          [uuid()]: {
-            collection: fetch_response.collection,
-            placeholder_name: fetch_response.placeholder_name,
-            items: filteredResponse,
-          },
-        };
-        dispatch(receiveAllSubTitles(newDataFormat));
+        // if (titlesState.status === 'idle') {
+        //   console.log('IN STATE');
+        //   console.log('values', Object.values(titlesState.columnsFromBackend));
+        //   const getValues = Object.values(titlesState.columnsFromBackend);
+        //   const itemsArray = getValues[0].items;
+        //   console.log('GET', itemsArray);
+        //   // console.log('VALUE ', values_);
+
+        //   const findItem = itemsArray.find((item) => {
+        //     console.log('ITEEEEM', item);
+        //     return item.main_name.toLowerCase() === title_name;
+        //   });
+        //   console.log('FOUND', findItem);
+        //   return;
+        // }
+
+        // const filteredResponse = await fetch_response.sub_titles.filter(
+        //   (item) => {
+        //     return item.title_name === title_name;
+        //   }
+        // );
+
+        // const newDataFormat = {
+        //   [uuid()]: {
+        //     collection: fetch_response.collection,
+        //     placeholder_name: fetch_response.placeholder_name,
+        //     items: filteredResponse,
+        //   },
+        // };
+        dispatch(
+          receiveAllSubTitles(fetch_response, titlesState, title_name_param)
+        );
       } catch (error) {
-        console.log('Error in SubSidebar ', error.message);
         dispatch(sendError(error.message));
       }
     };
     fetchingSubTitles();
-  }, [title_name]);
+  }, [title_name_param]);
 
   if (subTitlesState.status === 'loading') {
     return <div>Loading</div>;
   }
   if (subTitlesState.status === 'idle') {
-    console.log('%cSub Title State ', 'color: green;', subTitlesState);
+    // console.log(
+    //   '%cSub Title State ',
+    //   'color: green;',
+    //   subTitlesState.columnsFromBackend
+    // );
+    // console.log(
+    //   'New Selected',
+    //   subTitlesState.columnsFromBackend[title_name_param]
+    // );
+
     return (
       <Wrapper className="sub_sidebar_wrapper">
         <div>SubSidebar</div>
-        {/* <DragAndDrop
-          columnsArg={subTitlesState.columnsFromBackend}
+        <DragAndDrop
+          columnsArg={subTitlesState.columnsFromBackend[title_name_param]}
           dispatch={dispatch}
           request_reducer={requestAllSubTitles}
           receive_reducer={receiveAllSubTitles}
           update_reducer={updateSubTitles}
-        /> */}
+        />
       </Wrapper>
     );
   }

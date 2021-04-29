@@ -58,129 +58,131 @@ function DragAndDrop({
   // if(columnsArg){
 
   // }
-  return (
-    <DragDropContext
-      onDragEnd={(result) =>
-        onDragEnd(result, columnsArg, dispatch, update_reducer)
-      }
-      // onDragEnd={(result) => console.log('RESULT ', result)}
-    >
-      {Object.entries(columnsArg).map(([id, column]) => {
-        // console.log('DnD', id);
-        // console.log('ARG', column);
+  if (columnsArg) {
+    return (
+      <DragDropContext
+        onDragEnd={(result) =>
+          onDragEnd(result, columnsArg, dispatch, update_reducer)
+        }
+        // onDragEnd={(result) => console.log('RESULT ', result)}
+      >
+        {Object.entries(columnsArg).map(([id, column]) => {
+          // console.log('ARG', column);
 
-        return (
-          <Wrapper collection={column.collection}>
-            {column.collection === 'titles' && (
-              <div className="sidebar_home_wrapper">
-                <div className="sidebar_home_btn">HOME</div>
-              </div>
-            )}
-            <Droppable droppableId={id} key={id}>
-              {(provided, snapshot) => {
-                return (
-                  <Container
-                    className="container_"
-                    snapshot={snapshot}
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                    style={
-                      {
-                        // background: snapshot.isDraggingOver
-                        //   ? 'lightblue'
-                        //   : 'lightgrey',
-                        // padding: 4,
-                        // width: 250,
-                        // minHeight: 500,
+          return (
+            <Wrapper collection={column.collection}>
+              {column.collection === 'titles' && (
+                <div className="sidebar_home_wrapper">
+                  <div className="sidebar_home_btn">HOME</div>
+                </div>
+              )}
+              <Droppable droppableId={id} key={id}>
+                {(provided, snapshot) => {
+                  return (
+                    <Container
+                      className="container_"
+                      snapshot={snapshot}
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                      style={
+                        {
+                          // background: snapshot.isDraggingOver
+                          //   ? 'lightblue'
+                          //   : 'lightgrey',
+                          // padding: 4,
+                          // width: 250,
+                          // minHeight: 500,
+                        }
                       }
-                    }
-                  >
-                    {column.items.map((item, index) => {
-                      // console.log(item, index);
-                      return (
-                        <Draggable
-                          key={item._id} //_id
-                          draggableId={item._id} //_id
-                          index={index}
-                        >
-                          {(provided, snapshot) => {
-                            // let textState = {
-                            //   value: item.title_name,
-                            //   isInEditMode: true,
-                            // };
-                            // setTextContent(item.title_name);
-                            return (
-                              <>
-                                <Item
-                                  className="item_"
-                                  onClick={() => handleChosenItem(item)}
-                                  to={() =>
-                                    handleChosenTitle(column.collection, item)
-                                  }
-                                  onDoubleClick={ToggleDisabled}
-                                  onContextMenuCapture={(event) => {
-                                    handleRightClick(event);
-                                    handleChosenItem(item);
-                                  }}
-                                  snapshot={snapshot}
-                                  ref={provided.innerRef}
-                                  {...provided.draggableProps}
-                                  {...provided.dragHandleProps}
-                                  style={{
-                                    userSelect: 'none',
-                                    ...provided.draggableProps.style,
-                                  }}
-                                >
-                                  {/* {textState.value} */}
-                                  <ContentEditable
-                                    html={item.main_name}
-                                    disabled={isDisabled}
-                                  />
-                                </Item>
-                                {isContextMenuVisible &&
-                                  chosenItem._id === item._id && (
-                                    <RightClickContent
-                                      collection={column.collection}
-                                      contextMenuX={contextMenuX}
-                                      contextMenuY={contextMenuY}
-                                      columnId={id}
-                                      chosenItem={chosenItem}
-                                      handleEditContent={handleEditContent}
+                    >
+                      {column.items.map((item, index) => {
+                        // console.log('INDEX', item, index);
+                        return (
+                          <Draggable
+                            key={item._id} //_id
+                            draggableId={item._id} //_id
+                            index={index}
+                          >
+                            {(provided, snapshot) => {
+                              // let textState = {
+                              //   value: item.title_name,
+                              //   isInEditMode: true,
+                              // };
+                              // setTextContent(item.title_name);
+                              return (
+                                <>
+                                  <Item
+                                    className="item_"
+                                    onClick={() => handleChosenItem(item)}
+                                    to={() =>
+                                      handleChosenTitle(column.collection, item)
+                                    }
+                                    onDoubleClick={ToggleDisabled}
+                                    onContextMenuCapture={(event) => {
+                                      handleRightClick(event);
+                                      handleChosenItem(item);
+                                    }}
+                                    snapshot={snapshot}
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    style={{
+                                      userSelect: 'none',
+                                      ...provided.draggableProps.style,
+                                    }}
+                                  >
+                                    {/* {textState.value} */}
+                                    <ContentEditable
+                                      html={item.main_name}
+                                      disabled={isDisabled}
                                     />
-                                  )}
-                              </>
-                            );
-                          }}
-                        </Draggable>
-                      );
-                    })}
-                    {provided.placeholder}
-                  </Container>
-                );
-              }}
-            </Droppable>
-            <ModalToggleBtn
-              modalToggle={modalToggle}
-              setModalToggle={setModalToggle}
-              ToggleFct={ToggleFct}
-              collection={column.collection}
-            />
-            <Modal
-              modalToggle={modalToggle}
-              setModalToggle={setModalToggle}
-              ToggleFct={ToggleFct}
-              column={column}
-              columnId={id}
-              dispatch={dispatch}
-              // fetch_api={fetch_api}
-              request_reducer={request_reducer}
-              receive_reducer={receive_reducer}
-            />
-          </Wrapper>
-        );
-      })}
-    </DragDropContext>
-  );
+                                  </Item>
+                                  {isContextMenuVisible &&
+                                    chosenItem._id === item._id && (
+                                      <RightClickContent
+                                        collection={column.collection}
+                                        contextMenuX={contextMenuX}
+                                        contextMenuY={contextMenuY}
+                                        columnId={id}
+                                        chosenItem={chosenItem}
+                                        handleEditContent={handleEditContent}
+                                      />
+                                    )}
+                                </>
+                              );
+                            }}
+                          </Draggable>
+                        );
+                      })}
+                      {provided.placeholder}
+                    </Container>
+                  );
+                }}
+              </Droppable>
+              <ModalToggleBtn
+                modalToggle={modalToggle}
+                setModalToggle={setModalToggle}
+                ToggleFct={ToggleFct}
+                collection={column.collection}
+              />
+              <Modal
+                modalToggle={modalToggle}
+                setModalToggle={setModalToggle}
+                ToggleFct={ToggleFct}
+                column={column}
+                columnId={id}
+                dispatch={dispatch}
+                // fetch_api={fetch_api}
+                request_reducer={request_reducer}
+                receive_reducer={receive_reducer}
+              />
+            </Wrapper>
+          );
+        })}
+      </DragDropContext>
+    );
+  }
+  return <div>X</div>;
 }
 
 const Wrapper = styled.div`

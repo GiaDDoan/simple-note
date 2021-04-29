@@ -2,9 +2,15 @@ export const requestAllSubTitles = () => ({
   type: 'REQUEST_ALL_SUB_TITLES',
 });
 
-export const receiveAllSubTitles = (subTitlesColumn) => ({
+export const receiveAllSubTitles = (
+  fetch_response,
+  titlesState,
+  title_name_param
+) => ({
   type: 'RECEIVE_ALL_SUB_TITLES',
-  subTitlesColumn,
+  fetch_response,
+  titlesState,
+  title_name_param,
 });
 
 export const sendError = (error) => ({
@@ -12,9 +18,15 @@ export const sendError = (error) => ({
   error,
 });
 
-export const updateSubTitles = (subTitlesColumn) => ({
+export const updateSubTitles = (
+  fetch_response,
+  titlesState,
+  title_name_param
+) => ({
   type: 'UPDATE_SUB_TITLES',
-  subTitlesColumn,
+  fetch_response,
+  titlesState,
+  title_name_param,
 });
 
 // export const updateTitleOrder = (sourceId, sourceItems) => ({
