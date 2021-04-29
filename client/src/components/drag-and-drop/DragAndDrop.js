@@ -12,6 +12,7 @@ import { DragAndDropContext } from '../../contexts/DragAndDropContext';
 import { RightClickContext } from '../../contexts/RightClickContext';
 import RightClickContent from '../right-click-content/RightClickContent';
 import ContentEditable from 'react-contenteditable';
+import { useParams } from 'react-router-dom';
 // import { ToggleFct } from '../modal/functions/ToggleFct';
 // import { fetchAllTitles } from '../../api-helpers/index';
 
@@ -26,6 +27,7 @@ function DragAndDrop({
   //Modal
   const [modalToggle, setModalToggle] = useState(false);
   const dispatch = useDispatch();
+  const { title_name } = useParams();
 
   //Contexts
   const {

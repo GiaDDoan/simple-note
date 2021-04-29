@@ -32,11 +32,19 @@ function SubSidebar() {
 
       try {
         const fetch_response = await fetchDocuments('sub-titles');
+        console.log('response ', fetch_response.sub_titles);
+        const filteredResponse = await fetch_response.sub_titles.filter(
+          (item) => {
+            return item.title_name === title_name;
+          }
+        );
+        console.log('filtered ', filteredResponse);
+
         const newDataFormat = {
           [uuid()]: {
             collection: fetch_response.collection,
             placeholder_name: fetch_response.placeholder_name,
-            items: fetch_response.sub_titles,
+            items: filteredResponse,
           },
         };
         dispatch(receiveAllSubTitles(newDataFormat));
@@ -52,16 +60,17 @@ function SubSidebar() {
     return <div>Loading</div>;
   }
   if (subTitlesState.status === 'idle') {
+    console.log('%cSub Title State ', 'color: green;', subTitlesState);
     return (
       <Wrapper className="sub_sidebar_wrapper">
         <div>SubSidebar</div>
-        <DragAndDrop
+        {/* <DragAndDrop
           columnsArg={subTitlesState.columnsFromBackend}
           dispatch={dispatch}
           request_reducer={requestAllSubTitles}
           receive_reducer={receiveAllSubTitles}
           update_reducer={updateSubTitles}
-        />
+        /> */}
       </Wrapper>
     );
   }

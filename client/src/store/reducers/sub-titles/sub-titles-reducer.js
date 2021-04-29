@@ -1,4 +1,4 @@
-const initialState = { status: 'loading' };
+const initialState = { status: 'loading', columnsFromBackend: {} };
 
 /*TODO add case names*/
 export default function titlesReducer(state = initialState, action) {
@@ -11,11 +11,33 @@ export default function titlesReducer(state = initialState, action) {
     }
     case 'RECEIVE_ALL_SUB_TITLES': {
       // console.log('FROM REDUCER ', action.titlesColumn);
-      return {
-        ...state,
-        columnsFromBackend: action.subTitlesColumn,
-        status: 'idle',
-      };
+      const { subTitlesColumn } = action;
+
+      console.log('receive');
+      console.log('SUUUB', subTitlesColumn);
+
+      if (subTitlesColumn) {
+        let id_;
+        let column_;
+        Object.entries(subTitlesColumn).map(([id, column]) => {
+          console.log('ID ', id, column);
+        });
+
+        return {
+          ...state,
+          columnsFromBackend: {
+            ...state.columnsFromBackend,
+            subTitlesColumn,
+          },
+          // columnsFromBackend: {
+          //   ...state.columnsFromBackend,
+          //   [id_]: {
+          //     column_,
+          //   },
+          // },
+          status: 'idle',
+        };
+      }
     }
 
     case 'SEND_ERROR': {

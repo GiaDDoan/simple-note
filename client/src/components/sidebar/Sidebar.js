@@ -22,8 +22,6 @@ function Sidebar() {
     actions: { fetchDocuments },
   } = useContext(DragAndDropContext);
 
-  // console.log('TITLE STATE ', titlesState);
-
   React.useEffect(() => {
     const fetchingTitles = async () => {
       setStatus('loading');
@@ -51,8 +49,7 @@ function Sidebar() {
   }, []);
 
   if (status === 'idle') {
-    console.log('%cTITLE STATE ', 'color:yellow;', titlesState);
-    // console.log('NEW FORMAT ', sidebarColumn);
+    // console.log('%cTITLE STATE ', 'color:yellow;', titlesState);
     return (
       <Wrapper className="sidebar_wrapper">
         <DragAndDrop
