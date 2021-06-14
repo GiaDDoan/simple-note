@@ -21,6 +21,7 @@ function DragAndDrop({
   receive_reducer,
   update_reducer,
 }) {
+  //RANDOM COMMENT, TO DELETE, FOR TESTING
   // const [columns, setColumns] = React.useState(columnsArg);
   // console.log('COLUMNS', columns);
   //Modal
