@@ -27,19 +27,9 @@ function Sidebar() {
       setStatus('loading');
       dispatch(requestAllTitles());
       try {
-        // const fetch_response = await fetchAllTitles();
         const fetch_response = await fetchDocuments('titles');
 
-        // const newDataFormat = {
-        //   [uuid()]: {
-        //     collection: fetch_response.collection,
-        //     placeholder_name: fetch_response.placeholder_name,
-        //     items: fetch_response.titles,
-        //   },
-        // };
-        // console.log('NEW FORMAT ', newDataFormat);
         dispatch(receiveAllTitles(fetch_response));
-        // setSidebarColumn(newDataFormat);
         setStatus('idle');
       } catch (error) {
         setStatus('error');

@@ -33,36 +33,6 @@ function SubSidebar() {
 
       try {
         const fetch_response = await fetchDocuments('sub-titles');
-
-        // if (titlesState.status === 'idle') {
-        //   console.log('IN STATE');
-        //   console.log('values', Object.values(titlesState.columnsFromBackend));
-        //   const getValues = Object.values(titlesState.columnsFromBackend);
-        //   const itemsArray = getValues[0].items;
-        //   console.log('GET', itemsArray);
-        //   // console.log('VALUE ', values_);
-
-        //   const findItem = itemsArray.find((item) => {
-        //     console.log('ITEEEEM', item);
-        //     return item.main_name.toLowerCase() === title_name;
-        //   });
-        //   console.log('FOUND', findItem);
-        //   return;
-        // }
-
-        // const filteredResponse = await fetch_response.sub_titles.filter(
-        //   (item) => {
-        //     return item.title_name === title_name;
-        //   }
-        // );
-
-        // const newDataFormat = {
-        //   [uuid()]: {
-        //     collection: fetch_response.collection,
-        //     placeholder_name: fetch_response.placeholder_name,
-        //     items: filteredResponse,
-        //   },
-        // };
         dispatch(
           receiveAllSubTitles(fetch_response, titlesState, title_name_param)
         );
